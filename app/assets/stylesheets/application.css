@@ -10,4 +10,8 @@
  *
  *= require_self
  *= require_tree .
+ *= require bootstrap_and_overrides.css
  */
+.main {
+	margin-top: 60px;
+}
