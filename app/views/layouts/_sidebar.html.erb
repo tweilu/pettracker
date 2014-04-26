@@ -1,0 +1,26 @@
+<div class="col-sm-3 col-md-2 sidebar" id="sidebar" role="navigation">
+  <div class="logo"><a class="logo-text" href="index.html">pet tracker</a> <a class="about-link" href="about.html">about</a></div>
+  <ul class="nav nav-sidebar">
+
+    <li class="category">
+      <%= drop_down "Account" do %>
+        <%= menu_item "Profile", user_path(current_user) %>
+        <%= menu_item "Settings", edit_user_path(current_user) %>
+        <%= drop_down_divider %>
+        <%= menu_item "Sign out", signout_path, method: "delete"  %>
+      <% end %>
+    <li>
+  </ul>
+  <ul class="nav nav-sidebar">
+    <li class="active category"><%= link_to "My Pets", pets_path %></li>
+    <% current_user.pets.each do |pet| %>
+      <li class="subcategory"><%= link_to pet.name, pet %></li>
+    <% end %>
+  </ul>
+  <ul class="nav nav-sidebar">
+    <li class ="category"><a href="sittingpets.html">Pets I'm Sitting</a></li>
+    <li class="subcategory"><a href="john.html">John</a></li>
+    <li class="subcategory"><a href="frog.html">Frog</a></li>
+  </ul>
+  <ul class="nav nav-sidebar">
+</div>

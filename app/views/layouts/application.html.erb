@@ -8,18 +8,30 @@
   
 </head>
 <body>
-	<%= render 'layouts/header' %>
-	<% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <% if current_user %>
+        <%= render "layouts/sidebar" %>
       <% end %>
 
+      <% if current_user %>
+        <div class="col-sm-9 col-md-10 col-sm-offset-3 col-md-offset-2 main">
+          <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>"><%= value %></div>
+          <% end %>
+          <%= yield %>
+        </div>
+      <% else  %>
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+        <%= yield %>
+      <% end %>
 
-  <div class="main">
-
-	<%= yield %>
-
+    </div>
   </div>
-
 
 
 

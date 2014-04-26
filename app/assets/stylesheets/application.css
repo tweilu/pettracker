@@ -12,6 +12,223 @@
  *= require_tree .
  *= require bootstrap_and_overrides.css
  */
-.main {
-	margin-top: 60px;
+ 
+/* GLOBAL */
+body {
+  
+}
+a:hover {
+  text-decoration: none;
+}
+
+/* BOOTSTRAP OVERRIDES */
+.checkbox {
+  height:100%;
+  padding-top:30px;
+  padding-right: 30px;
+}
+
+/* OWN PROFILE STUFF */
+.profile-link {
+	padding:10px!important;
+}
+
+.profile-pic-nav {
+	width:30px;
+}
+
+.profile-pic {
+	width:140px;
+	padding:20px;
+	float:left;
+}
+
+.profile-container {
+	border-top: 1px solid #eee;
+}
+
+.navbar form {
+	width:100%;
+  text-align: center;
+}
+
+/* MY PETS page */
+.my-pet-entry {
+  padding:10px;
+  height:120px;
+}
+.my-pet-entry:hover {
+  background-color: #f5f5f5;
+}
+.my-pet-pic {
+  width:100px;
+  margin-right:10px;
+}
+.sitter-pic {
+  width:30px;
+}
+#addpet-form {
+  height:200px;
+}
+.pet-pic-upload {
+  float:left;
+}
+.pet-pic-upload img {
+  width:100px;
+}
+input[type=file] {
+  width:100px;
+  margin-left:10px;
+  color:#fff;
+}
+#addpet-btn {
+  margin-left:30px;
+}
+.controls {
+  border:1px solid #f5f5f5;
+  padding:5px;
+  text-align: right;
+}
+
+/* CALENDAR WIDGET */
+.calendar h3 {
+  margin-top: 0px;
+}
+.fc-header {
+  display:none;
+}
+.fc-event {
+  height:10px;
+}
+.fc-event-title {
+  display:none;
+}
+.fc-day-number {
+  font-size: .7em;
+}
+#event-info {
+  width:90px;
+  background-color: #f5f5f5;
+  display:none;
+  z-index:10;
+  border: 1px solid #999;
+  border-radius: 3px;
+}
+#event-info-content {
+  margin:5px;
+}
+#event-info .glyphicon-trash {
+  padding:5px;
+}
+#close-event-info {
+  position:absolute;
+  right:0;
+  margin-right:5px;
+}
+#add-event {
+  display:none;
+  background-color: #f5f5f5;
+  z-index:10;
+}
+
+/* INDIVIDUAL PETS page */
+.pet-pic {
+	border-radius: 10px;
+	margin-right:20px;
+	margin-bottom:20px;
+	width:190px;
+  height:190px;
+  overflow: hidden;
+}
+.pet-description {
+	width:400px!important;
+}
+.pet-description-text {
+	color:#5e5e5e;
+}
+.schedule-icon {
+	width:50px;
+	border-radius: 5px;
+}
+#pet-schedule {
+	height:300px;
+	border:1px solid #999;
+	border-radius: 5px;
+}
+.cal-hover .fc-day:hover {
+  background-color: #f5f5f5;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: absolute!important;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+.category {
+  
+}
+
+.subcategory {
+  text-indent:30px;
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover {
+  color: #fff;
+  background-color: #428bca;
+}
+
+.logo {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+.logo .logo-text {
+  color:#000;
+}
+.logo .about-link {
+  font-size: .45em;
+}
+
+.aboutlink {
+  font-size: 1em;
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+
+.about {
+  text-align: center;
 }

@@ -1,6 +1,7 @@
 Pettracker::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :pets
 
   root 'static_pages#home'
 
