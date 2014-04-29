@@ -1,4 +1,4 @@
-<h1 class="page-header">My Pets</h1>
+<h1 class="page-header">Pets I'm Sitting</h1>
 
 <div class="row">
   <div class="col-md-9">
@@ -8,13 +8,9 @@
           <div class="my-pet-entry">
             <img class="pull-left my-pet-pic img-circle" src="img/maximus.jpg" />
               <h2>
-                <%= pet.name %><br />
-                <small><%= pet.pet_type %> - 
-                  <% if pet.sitter.nil? %>
-                    No Sitter
-                  <% else %>
-                    Being sat by <%= pet.sitter.name %>
-                  <% end %>
+                <%= pet.name %> <small>(<%= pet.owner.name %>)</small><br />
+                <small>
+                  <%= pet.pet_type %>
                 </small>
               </h2>
           </div>

@@ -5,6 +5,11 @@ class PetsController < ApplicationController
   end
 
   def index
+  	@pets = current_user.my_pets
+  end
+
+  def sitting
+  	@pets = current_user.sitting_pets
   end
 
 

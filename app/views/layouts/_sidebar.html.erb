@@ -18,9 +18,10 @@
     <% end %>
   </ul>
   <ul class="nav nav-sidebar">
-    <li class ="category"><a href="sittingpets.html">Pets I'm Sitting</a></li>
-    <li class="subcategory"><a href="john.html">John</a></li>
-    <li class="subcategory"><a href="frog.html">Frog</a></li>
+    <li class ="category"><%= link_to "Pets I'm Sitting", pets_sitting_path %></li>
+    <% current_user.sitting_pets.each do |pet| %>
+      <li class="subcategory"><%= link_to pet.name, pet %></li>
+    <% end %>
   </ul>
   <ul class="nav nav-sidebar">
 </div>
