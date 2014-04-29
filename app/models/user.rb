@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
 	validates :email, presence: true, uniqueness: { case_sensitive: false }
 	has_secure_password
 	validates :password, length: { minimum: 6 }
-  has_many :pets
+  has_many :my_pets, :class_name => 'Pet', :foreign_key => 'owner_id'
+  has_many :sitting_pets, :class_name => 'Pet', :foreign_key => 'sitter_id'
 
 
   def User.new_remember_token
