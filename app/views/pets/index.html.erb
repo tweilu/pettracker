@@ -6,7 +6,7 @@
       <% @pets.each do |pet| %>
         <%= link_to(pet) do %>
           <div class="my-pet-entry">
-            <img class="pull-left my-pet-pic img-circle" src="img/maximus.jpg" />
+            <img class="pull-left my-pet-pic img-circle" src="http://placehold.it/100&text=my+pet" />
               <h2>
                 <%= pet.name %><br />
                 <small><%= pet.pet_type %> - 
@@ -20,6 +20,19 @@
           </div>
         <% end%>
       <% end %>
+      <% if @pets.empty? %>
+        <p>You have not added any of your pets.</p>
+      <% end %>
     </div>
+    <br />
+    <a id="addpet-btn" class="btn btn-primary" href="#">+ Add Pet</a>
   </div>
 </div>
+
+<script type="text/javascript">
+  $("#addpet-btn").click(function(e){
+    e.preventDefault();
+    $("#mypets-container").append("<%= escape_javascript(render 'addpet', :@pet => @newpet) %>");
+    $("#addpet-btn").css({'display':'none'});
+  })
+</script>

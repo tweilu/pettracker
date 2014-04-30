@@ -1,0 +1,34 @@
+<div id="addpet-form">
+  <div class="pet-pic-upload">
+    <img class="img-circle" src="" />
+    <form id="form1" runat="server">
+      <img id="addpet-img" class="img-circle" src="http://placehold.it/100&text=upload+image" alt="your image" />
+      <input type="file" id="addpet-img-input" />
+    </form>
+  </div>
+
+  <%= form_for(@pet, :html => { :class => "form-inline"}, remote: true ) do |f| %>
+
+    <%= f.text_field :name, {:placeholder => "Name", :class => 'form-control'} %>
+
+    <%= f.select(:pet_type, options_for_select([['Pet Type', ''],['Dog','Dog'],['Cat','Cat'],['Small creature','Small Creature']]), {}, {:class => 'form-control input-sm'}) %>
+
+    <br />
+
+    <%= f.text_area :description, {:placeholder => "General Pet Description", :class => 'form-control pet-description'} %>
+    <br /><br />
+
+    <%= f.submit "Save", class: "btn btn-default" %>
+    <button class="btn btn-default" id="cancelpet-btn">Cancel</button>
+  <% end %>
+
+
+  <script>
+    $("#cancelpet-btn").click(function(e) {
+      e.preventDefault();
+      $("#addpet-btn").css({'display':'inline'});
+      $("#addpet-form").remove();
+    })
+  </script>
+
+</div>

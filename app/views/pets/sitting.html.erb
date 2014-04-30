@@ -16,6 +16,9 @@
           </div>
         <% end%>
       <% end %>
+      <% if @pets.empty? %>
+        <p>You are not sitting any pets.</p>
+      <% end %>
     </div>
   </div>
 </div>

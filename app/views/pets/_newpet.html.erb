@@ -1,0 +1,15 @@
+<%= link_to(@pet) do %>
+  <div class="my-pet-entry">
+    <img class="pull-left my-pet-pic img-circle" src="http://placehold.it/100&text=my+pet" />
+      <h2>
+        <%= @pet.name %><br />
+        <small><%= @pet.pet_type %> - 
+          <% if @pet.sitter.nil? %>
+            No Sitter
+          <% else %>
+            Being sat by <%= @pet.sitter.name %>
+          <% end %>
+        </small>
+      </h2>
+  </div>
+<% end%>

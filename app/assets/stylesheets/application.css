@@ -69,6 +69,7 @@ a:hover {
 }
 #addpet-form {
   height:200px;
+  padding:10px;
 }
 .pet-pic-upload {
   float:left;
