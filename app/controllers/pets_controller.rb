@@ -37,7 +37,7 @@ class PetsController < ApplicationController
   def stopsitting
     @pet = Pet.find(params[:petid])
     if @pet.update_attributes(:sitter_id => nil)
-      redirect_to pets_path
+      redirect_to pets_sitting_path
     end
   end
 
