@@ -17,12 +17,31 @@ class PetsController < ApplicationController
         format.js
       end
     else
-      render 'new'
+      redirect_to :back
     end
   end
 
   def sitting
     @pets = current_user.sitting_pets
+  end
+
+  def removesitter
+    @pet = Pet.find(params[:petid])
+    if @pet.update_attributes(:sitter_id => nil)
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+
+  def addsitter
+    @pet = Pet.find(params[:petid])
+    sitteremail = params[:pet][:sitter_email]
+    sitter = User.find_by(:email => sitteremail)
+    if sitter
+      @pet.update_attributes(:sitter_id => sitter.id)
+    end
+    redirect_to :back
   end
 
   private

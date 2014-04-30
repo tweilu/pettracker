@@ -3,7 +3,11 @@ Pettracker::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'pets/sitting'
-  resources :pets
+  get '/pets/removesitter' => 'pets#removesitter'
+  post '/pets/addsitter' => 'pets#addsitter'
+  resources :pets do
+    post 'addsitter', on: :member
+  end
   
   root 'static_pages#home'
 
