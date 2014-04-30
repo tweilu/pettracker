@@ -1,15 +1,20 @@
 <h1 class="page-header">
   <%= @pet.name %>
   <span id="petsitter-info" class="pull-right">
-    <% if @pet.sitter.nil? %>
-      <%= render 'petsitter_form' %>
-    <% else %>
+    <% if @pet.owner != current_user %>
       <small>
-        Sitter: <%= @pet.sitter.name %> | <%= link_to "Remove", pets_removesitter_path(:petid => @pet.id), :confirm=>'Are you sure you would like to remove the sitter?', :remote => true %>
+        Owner: <%= @pet.owner.name %> | <%= link_to "Stop Sitting", pets_stopsitting_path(:petid => @pet.id), :confirm=>'Are you sure you would like to stop sitting this pet?' %>
       </small>
+    <% else %>
+      <% if @pet.sitter.nil? %>
+        <%= render 'petsitter_form' %>
+      <% else %>
+        <small>
+          Sitter: <%= @pet.sitter.name %> | <%= link_to "Remove", pets_removesitter_path(:petid => @pet.id), :confirm=>'Are you sure you would like to remove the sitter?', :remote => true %>
+        </small>
+      <% end %>
     <% end %>
   </span>
-  
 </h1>
 
 <div class="row">

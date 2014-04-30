@@ -4,6 +4,7 @@ Pettracker::Application.routes.draw do
 
   get 'pets/sitting'
   get '/pets/removesitter' => 'pets#removesitter'
+  get '/pets/stopsitting' => 'pets#stopsitting'
   post '/pets/addsitter' => 'pets#addsitter'
   resources :pets do
     post 'addsitter', on: :member
