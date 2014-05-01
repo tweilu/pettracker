@@ -35,3 +35,59 @@
   </div>
 
 </div>
+
+<div id="add-event">
+  <%= form_tag pets_addevent_path, :method => :post, :remote => true do %>
+    <%= hidden_field_tag :event_date, nil, :id => 'event_date' %>
+    <%= text_field_tag 'event_name', nil, {:class => 'form-control input-sm', :placeholder => 'New Appointment', :id => 'add-event-field'} %>
+    <%= button_tag(type: 'submit', class: 'btn btn-default btn-xs', :id => 'add-event-btn', :name => 'add_event') do %>
+      Add
+    <% end %>
+    <%= button_tag(type: 'submit', class: 'btn btn-default btn-xs', :id => 'cancel-event-btn', :name => 'cancel_event') do %>
+      Cancel
+    <% end %>
+  <% end %>
+</div>
+
+
+<script>
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+        events: <%= raw @events.to_json %>,
+
+        eventClick: function(calEvent, jsEvent, view) {
+
+          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-90, 'top':jsEvent.pageY});
+          $('#event-info-content').html('<p>'+calEvent.title+'</p>');
+
+        },
+        dayClick: function(date, allDay, jsEvent, view) {
+
+          $('#add-event').css({'display':'inline', 'position':'absolute', 'left':jsEvent.clientX-210, 'top':jsEvent.clientY});
+          $('#event_date').val(date);
+
+        },
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

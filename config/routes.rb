@@ -5,6 +5,7 @@ Pettracker::Application.routes.draw do
   get 'pets/sitting'
   post 'pets/mypetsactions' => 'pets#mypetsactions'
   post 'pets/sittingpetsactions' => 'pets#sittingpetsactions'
+  post 'pets/addevent' => 'pets#addevent'
   get '/pets/removesitter' => 'pets#removesitter'
   get '/pets/stopsitting' => 'pets#stopsitting'
   post '/pets/addsitter' => 'pets#addsitter'

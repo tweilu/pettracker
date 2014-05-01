@@ -2,11 +2,22 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
+    @events = []
+    @pet.events.each do |evt|
+      @events << evt.as_json
+    end
   end
 
   def index
     @pets = current_user.my_pets
     @newpet = Pet.new
+    events = []
+    @pets.each do |pet|
+      pet.events.each do |evt|
+        events << evt.as_json
+      end
+    end
+    @events_array = events.uniq{|x| x}
   end
 
   def create
@@ -68,6 +79,25 @@ class PetsController < ApplicationController
       @pet.update_attributes(:sitter_id => sitter.id)
     end
     redirect_to :back
+  end
+
+  def addevent
+    if params[:add_event]
+      @add = true
+      @event = Event.new
+      @event.name = params[:event_name]
+      @event.date = params[:event_date]
+      @event.save
+      @pet = Pet.find(params[:id])
+      @pet.events << @event
+    elsif params[:cancel_event]
+      @add = false
+    end
+
+    respond_to do |format|
+      format.js
+    end
+
   end
 
   private

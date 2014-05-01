@@ -41,6 +41,10 @@
     <br />
     <a id="addpet-btn" class="btn btn-primary" href="#">+ Add Pet</a>
   </div>
+  <div class="col-md-3 calendar">
+    <h3>Pet Appointments</h3>
+    <div id="calendar"></div>
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -70,8 +74,32 @@
       $('#removesitter_btn').attr("disabled", true);
       $('#delete_btn').attr("disabled", true);
     }
-
   }
   
   $(".my-pets").addClass("active");
 </script>
+<%= stylesheet_link_tag "fullcalendar" %>
+<%= javascript_include_tag "fullcalendar.min" %>
+<script>
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+        events: '<%= @events_array %>',
+
+        eventClick: function(calEvent, jsEvent, view) {
+
+        $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-90, 'top':jsEvent.pageY});
+        $('#event-info-content').html('<p>'+calEvent.title+'</p>');
+
+        }
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
