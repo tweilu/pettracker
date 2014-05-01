@@ -1,3 +1,6 @@
+<div class="checkbox pull-left">
+  <%= check_box_tag "pet_ids[]", @pet.id %>
+</div>
 <%= link_to(@pet) do %>
   <div class="my-pet-entry">
     <img class="pull-left my-pet-pic img-circle" src="http://placehold.it/100&text=my+pet" />

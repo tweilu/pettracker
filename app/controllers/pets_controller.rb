@@ -25,6 +25,25 @@ class PetsController < ApplicationController
     @pets = current_user.sitting_pets
   end
 
+  def mypetsactions
+    if params[:addsitter_btn]
+      sitter = User.find_by(:email => params[:sitter_email])
+      if sitter
+        Pet.update_all(['sitter_id=?', sitter.id], :id => params[:pet_ids])
+      end
+    elsif params[:removesitter_btn]
+      Pet.update_all(['sitter_id=?', nil], :id => params[:pet_ids])
+    elsif params[:delete_btn]
+      Pet.destroy_all(:id => params[:pet_ids])
+    end
+    redirect_to :back
+  end
+
+  def sittingpetsactions
+    Pet.update_all(['sitter_id=?', nil], :id => params[:pet_ids])
+    redirect_to :back
+  end
+
   def removesitter
     @pet = Pet.find(params[:petid])
     if @pet.update_attributes(:sitter_id => nil)
