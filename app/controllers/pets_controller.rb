@@ -39,6 +39,11 @@ class PetsController < ApplicationController
     redirect_to :back
   end
 
+  def sittingpetsactions
+    Pet.update_all(['sitter_id=?', nil], :id => params[:pet_ids])
+    redirect_to :back
+  end
+
   def removesitter
     @pet = Pet.find(params[:petid])
     if @pet.update_attributes(:sitter_id => nil)

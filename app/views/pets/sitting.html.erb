@@ -3,18 +3,28 @@
 <div class="row">
   <div class="col-md-9">
     <div id="mypets-container">
-      <% @pets.each do |pet| %>
-        <%= link_to(pet) do %>
-          <div class="my-pet-entry">
-            <img class="pull-left my-pet-pic img-circle" src="img/maximus.jpg" />
-              <h2>
-                <%= pet.name %> <small>(<%= pet.owner.name %>)</small><br />
-                <small>
-                  <%= pet.pet_type %>
-                </small>
-              </h2>
+      <%= form_tag pets_sittingpetsactions_path, :id => 'mypets-form', :method => :post do %>
+        <div class="controls form-inline">
+          <%= button_tag(type: 'submit', class: 'btn btn-default', :id => 'delete_btn', :data => {confirm: "Are you sure you would like to stop sitting these pets?"}) do %>
+            <i class='icon-trash'></i>
+          <% end %>
+        </div>
+        <% @pets.each do |pet| %>
+          <div class="checkbox pull-left">
+            <%= check_box_tag "pet_ids[]", pet.id, nil, {:onchange => 'checkIfChecked()'} %>
           </div>
-        <% end%>
+          <%= link_to(pet) do %>
+            <div class="my-pet-entry">
+              <img class="pull-left my-pet-pic img-circle" src="http://placehold.it/100&text=sitting+pet" />
+                <h2>
+                  <%= pet.name %> <small>(<%= pet.owner.name %>)</small><br />
+                  <small>
+                    <%= pet.pet_type %>
+                  </small>
+                </h2>
+            </div>
+          <% end%>
+        <% end %>
       <% end %>
       <% if @pets.empty? %>
         <p>You are not sitting any pets.</p>
@@ -22,3 +32,21 @@
     </div>
   </div>
 </div>
+
+
+<script type="text/javascript">
+  $('#delete_btn').attr("disabled", true);
+
+  var checkIfChecked = function() {
+    if ($("#mypets-form input:checkbox:checked").length > 0)
+    {
+      $('#delete_btn').attr("disabled", false);
+    }
+    else
+    {
+      $('#delete_btn').attr("disabled", true);
+    }
+
+  }
+  
+</script>
