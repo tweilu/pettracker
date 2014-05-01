@@ -12,13 +12,13 @@
     <li>
   </ul>
   <ul class="nav nav-sidebar">
-    <li class="active category"><%= link_to "My Pets", pets_path %></li>
+    <li class="category my-pets"><%= link_to "My Pets", pets_path %></li>
     <% current_user.my_pets.each do |pet| %>
       <li class="subcategory"><%= link_to pet.name, pet %></li>
     <% end %>
   </ul>
   <ul class="nav nav-sidebar">
-    <li class ="category"><%= link_to "Pets I'm Sitting", pets_sitting_path %></li>
+    <li class ="category sitting-pets"><%= link_to "Pets I'm Sitting", pets_sitting_path %></li>
     <% current_user.sitting_pets.each do |pet| %>
       <li class="subcategory"><%= link_to pet.name, pet %></li>
     <% end %>

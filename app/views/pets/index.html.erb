@@ -35,4 +35,5 @@
     $("#mypets-container").append("<%= escape_javascript(render 'addpet', :@pet => @newpet) %>");
     $("#addpet-btn").css({'display':'none'});
   })
+  $(".my-pets").addClass("active");
 </script>
