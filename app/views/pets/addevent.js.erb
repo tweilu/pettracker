@@ -1,8 +1,8 @@
-if (<%= @add %>) {
-		$('#calendar').fullCalendar('renderEvent', {title:'<%= @event.name %>', start:'<%= @event.date %>', id:'<%= @event.id %>'}, true);
-		$('#add-event').css({'display':'none'});
-		$('#add-event-field').val('');
-	
-} else {
+if ('<%= @add %>') {
+	$('#calendar').fullCalendar('renderEvent', {title:'<%= @event.name %>', start:'<%= @event.date %>', id:'<%= @event.id %>'}, true);
+	$('#add-event').css({'display':'none'});
+	$('#add-event-field').val('');
+}
+else {
 	$('#add-event').css({'display':'none'});
 }

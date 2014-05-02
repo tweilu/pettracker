@@ -82,9 +82,9 @@ class PetsController < ApplicationController
   end
 
   def addevent
+    @event = Event.new
     if params[:add_event]
       @add = true
-      @event = Event.new
       @event.name = params[:event_name]
       @event.date = params[:event_date]
       @event.save
