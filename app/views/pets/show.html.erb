@@ -39,6 +39,7 @@
 <div id="add-event">
   <%= form_tag pets_addevent_path, :method => :post, :remote => true do %>
     <%= hidden_field_tag :event_date, nil, :id => 'event_date' %>
+    <%= hidden_field_tag :pet_id, @pet.id %>
     <%= text_field_tag 'event_name', nil, {:class => 'form-control input-sm', :placeholder => 'New Appointment', :id => 'add-event-field'} %>
     <%= button_tag(type: 'submit', class: 'btn btn-default btn-xs', :id => 'add-event-btn', :name => 'add_event') do %>
       Add
@@ -47,6 +48,17 @@
       Cancel
     <% end %>
   <% end %>
+</div>
+
+<div id="event-info">
+  <div>
+    <a href="#" id="close-event-info">&times;</span></a>
+  </div>
+  <div id="event-info-content">
+  </div>
+  <div>
+    <a href="#" id="delete-event-btn"><span class="glyphicon glyphicon-trash"></span></a>
+  </div>
 </div>
 
 

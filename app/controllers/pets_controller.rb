@@ -88,7 +88,7 @@ class PetsController < ApplicationController
       @event.name = params[:event_name]
       @event.date = params[:event_date]
       @event.save
-      @pet = Pet.find(params[:id])
+      @pet = Pet.find(params[:pet_id])
       @pet.events << @event
     elsif params[:cancel_event]
       @add = false
