@@ -1,7 +1,8 @@
 if ('<%= @add %>') {
-	$('#calendar').fullCalendar('renderEvent', {title:'<%= @event.name %>', start:'<%= @event.date %>', id:'<%= @event.id %>'}, true);
+	$('#calendar').fullCalendar('renderEvent', {title:'<%= @event.name %>', start:'<%= @event.date %>', id:'<%= @event.id %>', time:'<%= @event.time %>'}, true);
 	$('#add-event').css({'display':'none'});
 	$('#add-event-field').val('');
+	$('#event-time-field').val('');
 }
 else {
 	$('#add-event').css({'display':'none'});

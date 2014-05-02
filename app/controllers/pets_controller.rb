@@ -87,6 +87,7 @@ class PetsController < ApplicationController
       @add = true
       @event.name = params[:event_name]
       @event.date = params[:event_date]
+      @event.time = params[:event_time]
       @event.save
       @pet = Pet.find(params[:pet_id])
       @pet.events << @event
@@ -98,6 +99,15 @@ class PetsController < ApplicationController
       format.js
     end
 
+  end
+
+  def deleteevent
+    @pet = Pet.find(params[:pet_id])
+    @event = Event.find(params[:event_id])
+    @pet.events.delete(@event)
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

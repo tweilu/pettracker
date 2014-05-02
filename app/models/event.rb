@@ -5,7 +5,8 @@ class Event < ActiveRecord::Base
     {  
       :id => self.id,  
       :title => self.name,  
-      :start => self.date
+      :start => self.date,
+      :time => self.time
     }  
   end
 
