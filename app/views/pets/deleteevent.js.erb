@@ -1,0 +1,4 @@
+$('#calendar').fullCalendar("removeEvents", '<%= @event.id %>');
+$('#calendar').fullCalendar("rerenderEvents");
+$('#event-info').css({'display':'none'});
+$('#event-info-content').html('');

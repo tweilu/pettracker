@@ -39,7 +39,9 @@
 <div id="add-event">
   <%= form_tag pets_addevent_path, :method => :post, :remote => true do %>
     <%= hidden_field_tag :event_date, nil, :id => 'event_date' %>
+    <%= hidden_field_tag :pet_id, @pet.id %>
     <%= text_field_tag 'event_name', nil, {:class => 'form-control input-sm', :placeholder => 'New Appointment', :id => 'add-event-field'} %>
+    <%= text_field_tag 'event_time', nil, {:class => 'form-control input-sm', :placeholder => 'Appointment Time', :id => 'event-time-field'} %>
     <%= button_tag(type: 'submit', class: 'btn btn-default btn-xs', :id => 'add-event-btn', :name => 'add_event') do %>
       Add
     <% end %>
@@ -49,25 +51,48 @@
   <% end %>
 </div>
 
+<div id="event-info">
+  <div>
+    <a href="#" id="close-event-info">&times;</span></a>
+  </div>
+  <div id="event-info-content">
+  </div>
+  <div>
+    <%= form_tag pets_deleteevent_path, :id => 'deleteevent', :method => :post, :remote => true do %>
+      <%= hidden_field_tag :event_id, nil, :id => 'event_id' %>
+      <%= hidden_field_tag :pet_id, @pet.id %>
+      <%= link_to "#", :onclick=>"$('#deleteevent').submit()" do %>
+        <span class="glyphicon glyphicon-trash"></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
 
 <script>
   $(document).ready(function() {
     $('#calendar').fullCalendar({
-        // put your options and callbacks here
-        events: <%= raw @events.to_json %>,
+      // put your options and callbacks here
+      events: <%= raw @events.to_json %>,
 
-        eventClick: function(calEvent, jsEvent, view) {
+      eventClick: function(calEvent, jsEvent, view) {
 
-          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-90, 'top':jsEvent.pageY});
-          $('#event-info-content').html('<p>'+calEvent.title+'</p>');
+        $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-210, 'top':jsEvent.pageY});
+        $('#event-info-content').html('<p>'+calEvent.title+'<br />'+calEvent.time+'</p>');
+        $('#event_id').val(calEvent.id);
 
-        },
-        dayClick: function(date, allDay, jsEvent, view) {
+      },
+      dayClick: function(date, allDay, jsEvent, view) {
 
-          $('#add-event').css({'display':'inline', 'position':'absolute', 'left':jsEvent.clientX-210, 'top':jsEvent.clientY});
-          $('#event_date').val(date);
+        $('#add-event').css({'display':'inline', 'position':'absolute', 'left':jsEvent.clientX-210, 'top':jsEvent.clientY});
+        $('#event_date').val(date);
 
-        },
+      },
+    });
+    $('#close-event-info').click(function(e) {
+      e.preventDefault();
+      $('#event-info').css({'display':'none'});
+      $('#event-info-content').html('');
     });
   });
   $(".pet_<%= @pet.id %>").addClass("active");
