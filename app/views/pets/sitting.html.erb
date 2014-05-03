@@ -31,6 +31,19 @@
       <% end %>
     </div>
   </div>
+  <div class="col-md-3 calendar">
+    <h3>Pet Appointments</h3>
+    <div id="calendar"></div>
+  </div>
+</div>
+
+
+<div id="event-info">
+  <div>
+    <a href="#" id="close-event-info">&times;</span></a>
+  </div>
+  <div id="event-info-content">
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -49,4 +62,27 @@
   }
   
   $(".sitting-pets").addClass("active");
+</script>
+
+<%= stylesheet_link_tag "fullcalendar" %>
+<%= javascript_include_tag "fullcalendar.min" %>
+<script>
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+        events: <%= raw @events_array.to_json %>,
+
+        eventClick: function(calEvent, jsEvent, view) {
+
+          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-210, 'top':jsEvent.pageY});
+          $('#event-info-content').html('<p>'+calEvent.title+'@'+calEvent.time+' for '+calEvent.pet_name+'</p>');
+
+        }
+    });
+    $('#close-event-info').click(function(e) {
+      e.preventDefault();
+      $('#event-info').css({'display':'none'});
+      $('#event-info-content').html('');
+    });
+  });
 </script>

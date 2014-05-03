@@ -34,6 +34,13 @@ class PetsController < ApplicationController
 
   def sitting
     @pets = current_user.sitting_pets
+    events = []
+    @pets.each do |pet|
+      pet.events.each do |evt|
+        events << evt.as_json
+      end
+    end
+    @events_array = events.uniq{|x| x}
   end
 
   def mypetsactions
