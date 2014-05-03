@@ -47,6 +47,16 @@
   </div>
 </div>
 
+
+<div id="event-info">
+  <div>
+    <a href="#" id="close-event-info">&times;</span></a>
+  </div>
+  <div id="event-info-content">
+  </div>
+</div>
+
+
 <script type="text/javascript">
   $("#addpet-btn").click(function(e){
     e.preventDefault();
@@ -84,14 +94,19 @@
   $(document).ready(function() {
     $('#calendar').fullCalendar({
         // put your options and callbacks here
-        events: '<%= @events_array %>',
+        events: <%= raw @events_array.to_json %>,
 
         eventClick: function(calEvent, jsEvent, view) {
 
-        $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-90, 'top':jsEvent.pageY});
-        $('#event-info-content').html('<p>'+calEvent.title+'</p>');
+          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-210, 'top':jsEvent.pageY});
+          $('#event-info-content').html('<p>'+calEvent.title+'@'+calEvent.time+' for '+calEvent.pet_name+'</p>');
 
         }
+    });
+    $('#close-event-info').click(function(e) {
+      e.preventDefault();
+      $('#event-info').css({'display':'none'});
+      $('#event-info-content').html('');
     });
   });
 </script>

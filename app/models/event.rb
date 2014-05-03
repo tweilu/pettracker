@@ -6,7 +6,8 @@ class Event < ActiveRecord::Base
       :id => self.id,  
       :title => self.name,  
       :start => self.date,
-      :time => self.time
+      :time => self.time,
+      :pet_name => self.pets.first.name
     }  
   end
 
