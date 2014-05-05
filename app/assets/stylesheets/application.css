@@ -24,6 +24,7 @@ a:hover {
 /* BOOTSTRAP OVERRIDES */
 .checkbox {
   height:100%;
+  padding:10px;
   padding-top:40px;
   margin-left:10px;
 }
@@ -69,7 +70,7 @@ a:hover {
 .my-pet-pic {
   width:100px;
   margin-right:10px;
-  margin-left:30px;
+  margin-left:20px;
 }
 .sitter-pic {
   width:30px;
@@ -103,11 +104,21 @@ input[type=file] {
 .calendar h3 {
   margin-top: 0px;
 }
-.fc-header {
+.fc-header-right {
   display:none;
+}
+.fc-header-title h2 {
+  font-size: 1.5em;
+}
+.fc-button-today {
+  display:none!important;
 }
 .fc-event {
   height:10px;
+}
+.fc-event:hover {
+  cursor:pointer;
+  background-color: #307090;
 }
 .fc-event-title {
   display:none;
@@ -116,15 +127,15 @@ input[type=file] {
   font-size: .7em;
 }
 #event-info {
-  width:90px;
-  background-color: #f5f5f5;
+  background-color: #fff;
   display:none;
   z-index:10;
-  border: 1px solid #999;
-  border-radius: 3px;
+  border: 1px solid #bdbdbd;
+  box-shadow: 0px 0px 3px #999;
 }
 #event-info-content {
   margin:5px;
+  margin-right:20px;
 }
 #event-info .glyphicon-trash {
   padding:5px;
@@ -136,9 +147,59 @@ input[type=file] {
 }
 #add-event {
   display:none;
-  background-color: #f5f5f5;
+  background-color: #fff;
   z-index:10;
+  border: 1px solid #bdbdbd;
+  box-shadow: 0px 0px 3px #999;
+  padding:5px;
+  padding-right:10px;
 }
+#add_event_form {
+  margin:5px;
+  margin-right: 20px
+}
+.cal-hover .fc-day:hover {
+  background-color: #f5f5f5;
+  border: 1px solid #4b9bc3;
+  cursor:pointer;
+}
+.arrow_box {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #bdbdbd;
+}
+.arrow_box:after, .arrow_box:before {
+  bottom: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.arrow_box:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-bottom-color: #ffffff;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.arrow_box:before {
+  border-color: rgba(189, 189, 189, 0);
+  border-bottom-color: #bdbdbd;
+  border-width: 11px;
+  margin-left: -11px;
+}
+#calendar-btns {
+  float:right;
+  padding-top:5px;
+}
+#calendar-pets p {
+  font-size: .7em;
+  padding-top: 8px;
+  margin-right:5px;
+}
+
 
 /* INDIVIDUAL PETS page */
 .pet-pic {
@@ -163,9 +224,6 @@ input[type=file] {
 	height:300px;
 	border:1px solid #999;
 	border-radius: 5px;
-}
-.cal-hover .fc-day:hover {
-  background-color: #f5f5f5;
 }
 
 /*

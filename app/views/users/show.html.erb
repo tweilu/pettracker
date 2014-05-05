@@ -1,2 +1,11 @@
 <% provide(:title, @user.name) %>
 <h1><%= @user.name %></h1>
+
+<%= link_to "Settings", edit_user_path(@user) %><br />
+<%= link_to "Sign Out", signout_path %>
+
+
+
+<script>
+	$('.user-page').addClass('active');
+</script>

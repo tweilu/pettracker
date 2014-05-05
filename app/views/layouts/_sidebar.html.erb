@@ -1,25 +1,23 @@
 <div class="col-sm-3 col-md-2 sidebar" id="sidebar" role="navigation">
-  <div class="logo"><a class="logo-text" href="index.html">pet tracker</a> <a class="about-link" href="about.html">about</a></div>
+  <div class="logo">
+    <%= link_to 'pet tracker', static_pages_home_path, :class => 'logo-text' %>
+    <%= link_to 'about', about_path, :class => 'about-link' %>
+  </div>
   <ul class="nav nav-sidebar">
 
-    <li class="category">
-      <%= drop_down "Account" do %>
-        <%= menu_item "Profile", user_path(current_user) %>
-        <%= menu_item "Settings", edit_user_path(current_user) %>
-        <%= drop_down_divider %>
-        <%= menu_item "Sign out", signout_path, method: "delete"  %>
-      <% end %>
+    <li class="category user-page">
+      <%= link_to current_user.name, user_path(current_user) %>
     <li>
   </ul>
   <ul class="nav nav-sidebar">
     <li class="category my-pets"><%= link_to "My Pets", pets_path %></li>
-    <% current_user.my_pets.each do |pet| %>
+    <% current_user.my_pets.sort_by!{ |m| m.name.downcase }.each do |pet| %>
       <li class="subcategory pet_<%= pet.id %>"><%= link_to pet.name, pet %></li>
     <% end %>
   </ul>
   <ul class="nav nav-sidebar">
     <li class ="category sitting-pets"><%= link_to "Pets I'm Sitting", pets_sitting_path %></li>
-    <% current_user.sitting_pets.each do |pet| %>
+    <% current_user.sitting_pets.sort_by!{ |m| m.name.downcase }.each do |pet| %>
       <li class="subcategory pet_<%= pet.id %>"><%= link_to pet.name, pet %></li>
     <% end %>
   </ul>
