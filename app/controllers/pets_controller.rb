@@ -9,7 +9,7 @@ class PetsController < ApplicationController
   end
 
   def index
-    @pets = current_user.my_pets
+    @pets = current_user.my_pets.sort_by!{ |m| m.name.downcase }
     @newpet = Pet.new
     events = []
     @pets.each do |pet|
@@ -34,7 +34,7 @@ class PetsController < ApplicationController
   end
 
   def sitting
-    @pets = current_user.sitting_pets
+    @pets = current_user.sitting_pets.sort_by!{ |m| m.name.downcase }
     events = []
     @pets.each do |pet|
       pet.events.each do |evt|
