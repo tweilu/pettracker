@@ -203,7 +203,6 @@ function initialize() {
 
 
 $(document).ready(function() {
-    alert("timeline");
     initialize();
     $("#timelineCanvas").click(function() {
         $("#note").remove();
