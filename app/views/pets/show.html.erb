@@ -30,8 +30,7 @@
 
 
   <div class="col-md-3 calendar">
-    <h3>Appointments</h3>
-    <div id="calendar"></div>
+    <%= render 'calendar' %>
   </div>
 
 </div>
@@ -93,15 +92,15 @@
           $('#event-info').css({'display':'none'});
 
         },
-      });
-      $('#close-event-info').click(function(e) {
-        e.preventDefault();
-        $('#event-info').css({'display':'none'});
-        $('#event-info-content').html('');
+
+        titleFormat: {
+          month: '\'Appointments for \' MMM'
+        }
+
+
       });
 
 
-      $(".pet_<%= @pet.id %>").addClass("active");
       $(".calendar").addClass("cal-hover");
       $("#add_event_form").validator();
 
@@ -122,27 +121,45 @@
 
         eventClick: function(calEvent, jsEvent, view) {
 
-          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-210, 'top':jsEvent.pageY});
+          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-243-$('#event-info').outerWidth()/2, 'top':jsEvent.pageY+13});
           $('#event-info-content').html('<p>'+calEvent.title+'<br />'+calEvent.time+'</p>');
           $('#event_id').val(calEvent.id);
 
+        },
+
+        titleFormat: {
+          month: '\'Appointments for \' MMM'
         }
-      });
-      $('#close-event-info').click(function(e) {
-        e.preventDefault();
-        $('#event-info').css({'display':'none'});
-        $('#event-info-content').html('');
+
       });
 
-
-      $(".pet_<%= @pet.id %>").addClass("active");
 
     });
     
   </script>
 <% end %>
 
+<script>
 
+  $('#close-event-info').click(function(e) {
+    e.preventDefault();
+    $('#event-info').css({'display':'none'});
+    $('#event-info-content').html('');
+  });
+  $(".pet_<%= @pet.id %>").addClass("active");
+  $('#nextmonth').click(function(e) {
+    e.preventDefault();
+    $('#calendar').fullCalendar('next');
+  });
+  $('#lastmonth').click(function(e) {
+    e.preventDefault();
+    $('#calendar').fullCalendar('prev');
+  });
+
+  $('#calendar-pets').html('<p>Viewing appointments for <%= @pet.name %>.');
+
+
+</script>
 
 
 

@@ -103,8 +103,14 @@ input[type=file] {
 .calendar h3 {
   margin-top: 0px;
 }
-.fc-header {
+.fc-header-right {
   display:none;
+}
+.fc-header-title h2 {
+  font-size: 1.5em;
+}
+.fc-button-today {
+  display:none!important;
 }
 .fc-event {
   height:10px;
@@ -182,6 +188,15 @@ input[type=file] {
   border-bottom-color: #bdbdbd;
   border-width: 11px;
   margin-left: -11px;
+}
+#calendar-btns {
+  float:right;
+  padding-top:5px;
+}
+#calendar-pets p {
+  font-size: .7em;
+  padding-top: 8px;
+  margin-right:5px;
 }
 
 

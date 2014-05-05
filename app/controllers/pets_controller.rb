@@ -18,6 +18,7 @@ class PetsController < ApplicationController
       end
     end
     @events_array = events.uniq{|x| x}
+    @pets_select = @pets.collect {|p| [p.name, p.id]}
   end
 
   def create

@@ -32,8 +32,7 @@
     </div>
   </div>
   <div class="col-md-3 calendar">
-    <h3>Pet Appointments</h3>
-    <div id="calendar"></div>
+    <%= render 'calendar' %>
   </div>
 </div>
 
@@ -47,27 +46,26 @@
 </div>
 
 <script type="text/javascript">
-  $('#delete_btn').attr("disabled", true);
 
-  var checkIfChecked = function() {
-    if ($("#mypets-form input:checkbox:checked").length > 0)
-    {
-      $('#delete_btn').attr("disabled", false);
-    }
-    else
-    {
-      $('#delete_btn').attr("disabled", true);
-    }
-
-  }
-  
-  $(".sitting-pets").addClass("active");
-</script>
-
-<%= stylesheet_link_tag "fullcalendar" %>
-<%= javascript_include_tag "fullcalendar.min" %>
-<script>
   $(document).ready(function() {
+
+    $('#delete_btn').attr("disabled", true);
+
+    var checkIfChecked = function() {
+      if ($("#mypets-form input:checkbox:checked").length > 0)
+      {
+        $('#delete_btn').attr("disabled", false);
+      }
+      else
+      {
+        $('#delete_btn').attr("disabled", true);
+      }
+
+    }
+    
+    $(".sitting-pets").addClass("active");
+
+
     $('#calendar').fullCalendar({
         // put your options and callbacks here
         events: <%= raw @events_array.to_json %>,
@@ -77,6 +75,9 @@
           $('#event-info-content').html('<p>'+calEvent.title+' @ '+calEvent.time+'<br />For '+calEvent.pet_name+'</p>');
           $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-213-$('#event-info').outerWidth()/2, 'top':jsEvent.pageY+13});
 
+        },
+        titleFormat: {
+          month: '\'Appointments for \' MMM'
         }
     });
     $('#close-event-info').click(function(e) {
@@ -84,5 +85,17 @@
       $('#event-info').css({'display':'none'});
       $('#event-info-content').html('');
     });
+
+    $('#nextmonth').click(function(e) {
+      e.preventDefault();
+      $('#calendar').fullCalendar('next');
+    });
+    $('#lastmonth').click(function(e) {
+      e.preventDefault();
+      $('#calendar').fullCalendar('prev');
+    });
+
+    $('#calendar-pets').html('<p>Viewing appointments for pets you are sitting.');
+
   });
 </script>

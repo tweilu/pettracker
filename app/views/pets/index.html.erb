@@ -42,9 +42,23 @@
     <a id="addpet-btn" class="btn btn-primary" href="#">+ Add Pet</a>
   </div>
   <div class="col-md-3 calendar">
-    <h3>Pet Appointments</h3>
-    <div id="calendar"></div>
+    <%= render 'calendar' %>
   </div>
+</div>
+
+<div id="add-event" class="arrow_box">
+  <%= link_to '&times;'.html_safe, '#', {:id => 'cancel-event-btn', :class => 'pull-right'} %>
+  <%= form_tag pets_addevent_path, :id => 'add_event_form', :method => :post, :remote => true do %>
+    <%= hidden_field_tag :event_date, nil, :id => 'event_date' %>
+    <%= text_field_tag 'event_name', nil, {:class => 'form-control input-sm', :placeholder => 'New Appointment', :id => 'add-event-field', :required => true} %>
+    <%= text_field_tag 'event_time', nil, {:class => 'form-control input-sm', :placeholder => 'Appointment Time', :id => 'event-time-field', :required => true} %>
+    For Pet: <%= select_tag(:pet_id, options_for_select(@pets_select)) %><br />
+    <%= button_tag(type: 'submit', class: 'btn btn-default btn-xs', :id => 'add-event-btn', :name => 'add_event') do %>
+      Add
+    <% end %>
+    
+  <% end %>
+  
 </div>
 
 
@@ -87,10 +101,7 @@
   }
   
   $(".my-pets").addClass("active");
-</script>
-<%= stylesheet_link_tag "fullcalendar" %>
-<%= javascript_include_tag "fullcalendar.min" %>
-<script>
+
   $(document).ready(function() {
     $('#calendar').fullCalendar({
         // put your options and callbacks here
@@ -101,17 +112,45 @@
           $('#event-info-content').html('<p>'+calEvent.title+' @ '+calEvent.time+'<br />For '+calEvent.pet_name+'</p>');
           $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-213-$('#event-info').outerWidth()/2, 'top':jsEvent.pageY+13});
 
+        },
+        dayClick: function(date, allDay, jsEvent, view) {
+
+          $('#event_date').val(date);
+          $('#add-event').css({'display':'inline', 'position':'absolute', 'left':jsEvent.clientX-213-$('#add-event').outerWidth()/2, 'top':jsEvent.clientY+13});
+          $('#event-info').css({'display':'none'});
+
+        },
+        titleFormat: {
+          month: '\'Appointments for \' MMM'
         }
     });
+
+    $(".calendar").addClass("cal-hover");
+    $("#add_event_form").validator();
+
+    $("#cancel-event-btn").click(function(e) {
+        $('#add-event').css({'display':'none'});
+      })
+
     $('#close-event-info').click(function(e) {
       e.preventDefault();
       $('#event-info').css({'display':'none'});
       $('#event-info-content').html('');
     });
+
+    $('#nextmonth').click(function(e) {
+      e.preventDefault();
+      $('#calendar').fullCalendar('next');
+    });
+    $('#lastmonth').click(function(e) {
+      e.preventDefault();
+      $('#calendar').fullCalendar('prev');
+    });
+
+    $('#calendar-pets').html('<p>Viewing appointments for all your pets.');
+
   });
 </script>
-
-
 
 
 
