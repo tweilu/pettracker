@@ -48,7 +48,7 @@
 </div>
 
 
-<div id="event-info">
+<div id="event-info" class="arrow_box">
   <div>
     <a href="#" id="close-event-info">&times;</span></a>
   </div>
@@ -98,8 +98,8 @@
 
         eventClick: function(calEvent, jsEvent, view) {
 
-          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-210, 'top':jsEvent.pageY});
-          $('#event-info-content').html('<p>'+calEvent.title+'@'+calEvent.time+' for '+calEvent.pet_name+'</p>');
+          $('#event-info-content').html('<p>'+calEvent.title+' @ '+calEvent.time+'<br />For '+calEvent.pet_name+'</p>');
+          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-213-$('#event-info').outerWidth()/2, 'top':jsEvent.pageY+13});
 
         }
     });

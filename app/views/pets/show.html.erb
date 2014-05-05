@@ -36,7 +36,7 @@
 
 </div>
 
-<div id="event-info">
+<div id="event-info" class="arrow_box">
   <div>
     <a href="#" id="close-event-info">&times;</span></a>
   </div>
@@ -55,8 +55,8 @@
 
 <% if @pet.owner.id === current_user.id %>
 
-  <div id="add-event">
-    <%= link_to 'x', '#', {:id => 'cancel-event-btn', :class => 'pull-right'} %>
+  <div id="add-event" class="arrow_box">
+    <%= link_to '&times;'.html_safe, '#', {:id => 'cancel-event-btn', :class => 'pull-right'} %>
     <%= form_tag pets_addevent_path, :id => 'add_event_form', :method => :post, :remote => true do %>
       <%= hidden_field_tag :event_date, nil, :id => 'event_date' %>
       <%= hidden_field_tag :pet_id, @pet.id %>
@@ -80,15 +80,17 @@
 
         eventClick: function(calEvent, jsEvent, view) {
 
-          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-210, 'top':jsEvent.pageY});
           $('#event-info-content').html('<p>'+calEvent.title+'<br />'+calEvent.time+'</p>');
+          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-213-$('#event-info').outerWidth()/2, 'top':jsEvent.pageY+13});
           $('#event_id').val(calEvent.id);
+          $('#add-event').css({'display':'none'});
 
         },
         dayClick: function(date, allDay, jsEvent, view) {
 
-          $('#add-event').css({'display':'inline', 'position':'absolute', 'left':jsEvent.clientX-200, 'top':jsEvent.clientY});
           $('#event_date').val(date);
+          $('#add-event').css({'display':'inline', 'position':'absolute', 'left':jsEvent.clientX-213-$('#add-event').outerWidth()/2, 'top':jsEvent.clientY+13});
+          $('#event-info').css({'display':'none'});
 
         },
       });
