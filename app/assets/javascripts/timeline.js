@@ -63,7 +63,7 @@ function dropImage() {
     img.setAttribute("class", "icon smallIcon");
     img.style.left = draggedImage.offsetLeft + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
     img.style.top = min + "px";
-    $(img).draggable({containment: 'parent'});
+    //$(img).draggable({containment: 'parent'});
     $(img).mouseup(iconMouseUp);
     $(img).mousedown(iconMouseDown);
     $(img).mousemove(iconMouseMove);
@@ -84,7 +84,7 @@ function topIconDown() {
     img.style.top = this.style.top;
     img.style.zIndex = "1";
     $(img).mouseup(iconMouseUp);
-    $(img).draggable({containment: 'parent'});
+    //$(img).draggable({containment: 'parent'});
     $(img).mousedown(iconMouseDown);
     $(img).mousemove(iconMouseMove);
     $("#timeline").append(img);
@@ -127,7 +127,7 @@ function staticMouseUp() {
             img.setAttribute("class", "icon smallIcon");
             img.style.left = leftOffset + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
             img.style.top = 315 + "px";
-            $(img).draggable({containment: 'parent'});
+            //$(img).draggable({containment: 'parent'});
             $(img).mouseup(iconMouseUp);
             $(img).mousedown(iconMouseDown);
             $(img).mousemove(iconMouseMove);
@@ -168,20 +168,20 @@ function initialize() {
         var offset = 0;
 
         var img = document.createElement("img");
-        img.src = "img/" + icon + "-icon.jpg";
+        img.src = "/assets/" + icon + "-icon.jpg";
         img.setAttribute("class", "icon largeIcon");
         img.style.height = IMG_WIDTH + "px";
         img.style.left = IMG_MARGIN + i*(IMG_WIDTH + IMG_SPACING) + "px";
         img.style.top = IMG_MARGIN + "px";
         img.style.zIndex = "1";
         $(img).mouseup(iconMouseUp);
-        $(img).draggable({containment: 'parent'});
+        //$(img).draggable({containment: 'parent'});
         $(img).mousedown(iconMouseDown);
         $(img).mousemove(iconMouseMove);
         $("#timeline").append(img);
 
         var img = document.createElement("img");
-        img.src = "img/" + icon + "-icon.jpg";
+        img.src = "/assets/" + icon + "-icon.jpg";
         img.setAttribute("class", "icon topIcon");
         img.style.height = IMG_WIDTH + "px";
         img.style.left = IMG_MARGIN + i*(IMG_WIDTH + IMG_SPACING) + "px";
@@ -192,7 +192,7 @@ function initialize() {
 
     // Create trashcan
     var trashcan = document.createElement("img");
-    trashcan.src = "img/trashcan.png";
+    trashcan.src = "/assets/trashcan.png";
     trashcan.style.height = IMG_WIDTH + "px";
     trashcan.setAttribute("id", "trashcan");
     trashcan.style.right = IMG_MARGIN + "px";
@@ -203,6 +203,7 @@ function initialize() {
 
 
 $(document).ready(function() {
+    alert("timeline");
     initialize();
     $("#timelineCanvas").click(function() {
         $("#note").remove();
