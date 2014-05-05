@@ -5,18 +5,44 @@ var IMG_MARGIN = 20;
 var dragging = false;
 var staticDragging = false;
 var draggedImage;
+var TOP_ZONE = 100;
 
 function createNote(x, y) {
     var note = document.createElement("div");
     note.setAttribute("id", "note");
     note.style.left = x + "px";
     note.style.top = y + "px";
+    note.style.backgroundColor = "white";
+
+    var f = document.createElement("form");
+    f.setAttribute("method", "post");
+    f.setAttribute("action", "submit.php");
+
     var text = document.createElement("textarea");
     text.setAttribute("rows", "4");
     text.setAttribute("cols", "30");
     text.setAttribute("placeholder", "Details...");
+
+    var s = document.createElement("input");
+    s.setAttribute("type", "submit");
+    s.setAttribute("value", "save");
+
+    var tbdy = document.createElement("tbody");
+    var tr = document.createElement("tr");
+    var td = document.createElement("td");
+    td.appendChild(text)
+    tr.appendChild(td);
+    tbdy.appendChild(tr);
+    tr = document.createElement("tr");
+    td = document.createElement("td");
+    td.appendChild(s);
+    tr.appendChild(td);
+    tbdy.appendChild(tr);
+
+    f.appendChild(tbdy);
+    note.appendChild(f);
+
     $("#timeline").append(note);
-    $("#note").append(text);
 }
 
 function dropImage() {
@@ -74,7 +100,7 @@ function iconMouseUp() {
         var canvas = document.getElementById("timelineCanvas");
         canvas.width = canvas.width;
 
-        if(!((this.offsetLeft + 0.5*IMG_WIDTH > $("#trashcan").position().left) && (this.offsetTop < $("#trashcan").position().top + 0.5*IMG_WIDTH))) {
+        if(!((this.offsetLeft + 0.5*IMG_WIDTH > $("#trashcan").position().left) && (this.offsetTop < $("#trashcan").position().top + 0.5*IMG_WIDTH)) && this.offsetTop > TOP_ZONE) {
             dropImage();
             createNote(this.offsetLeft + IMG_WIDTH / 2, 345);
         }
@@ -94,7 +120,7 @@ function staticMouseUp() {
         var leftOffset = this.offsetLeft;
         var src = this.src;
         
-        if(!(( + this.offsetLeft + 0.5*IMG_WIDTH > $("#trashcan").position().left) && (this.offsetTop < $("#trashcan").position().top + 0.5*IMG_WIDTH))) {
+        if(!(( + this.offsetLeft + 0.5*IMG_WIDTH > $("#trashcan").position().left) && (this.offsetTop < $("#trashcan").position().top + 0.5*IMG_WIDTH)) && this.offsetTop > TOP_ZONE) {
             var img = document.createElement("img");
             img.src = src;
             img.style.height = IMG_WIDTH / 2 + "px";
@@ -122,10 +148,10 @@ function iconMouseDown() {
 }
 
 function iconMouseMove() {
-    if(dragging && this === draggedImage) {
-        var canvas = document.getElementById("timelineCanvas");
-        var ctx = canvas.getContext("2d");
-        canvas.width = canvas.width;
+    var canvas = document.getElementById("timelineCanvas");
+    var ctx = canvas.getContext("2d");
+    canvas.width = canvas.width;
+    if(dragging && this.offsetTop > TOP_ZONE) {
         ctx.moveTo(this.offsetLeft + canvas.offsetLeft + IMG_WIDTH/2, this.offsetTop + IMG_WIDTH/2);
         ctx.lineTo(this.offsetLeft + canvas.offsetLeft + IMG_WIDTH/2, 335);
         ctx.stroke();
