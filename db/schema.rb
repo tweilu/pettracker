@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501201638) do
+ActiveRecord::Schema.define(version: 20140506214044) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -32,6 +32,24 @@ ActiveRecord::Schema.define(version: 20140501201638) do
     t.text     "description"
     t.integer  "owner_id"
     t.integer  "sitter_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "plodos", force: true do |t|
+    t.string   "type"
+    t.string   "time"
+    t.string   "info"
+    t.integer  "pet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "updates", force: true do |t|
+    t.string   "date"
+    t.string   "time"
+    t.string   "info"
+    t.integer  "pet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
