@@ -55,7 +55,6 @@ function dropImage() {
             min = Math.min(min, this.offsetTop - IMG_WIDTH / 2);
         }
     });
-    console.log("here");
     var canvas = document.getElementById("timelineCanvas");
     var img = document.createElement("img");
     img.src = draggedImage.src;
@@ -168,7 +167,7 @@ function initialize() {
         var offset = 0;
 
         var img = document.createElement("img");
-        img.src = "img/" + icon + "-icon.jpg";
+        img.src = "/assets/" + icon + "-icon.jpg";
         img.setAttribute("class", "icon largeIcon");
         img.style.height = IMG_WIDTH + "px";
         img.style.left = IMG_MARGIN + i*(IMG_WIDTH + IMG_SPACING) + "px";
@@ -181,7 +180,7 @@ function initialize() {
         $("#timeline").append(img);
 
         var img = document.createElement("img");
-        img.src = "img/" + icon + "-icon.jpg";
+        img.src = "/assets/" + icon + "-icon.jpg";
         img.setAttribute("class", "icon topIcon");
         img.style.height = IMG_WIDTH + "px";
         img.style.left = IMG_MARGIN + i*(IMG_WIDTH + IMG_SPACING) + "px";
@@ -192,7 +191,7 @@ function initialize() {
 
     // Create trashcan
     var trashcan = document.createElement("img");
-    trashcan.src = "img/trashcan.png";
+    trashcan.src = "/assets/trashcan.png";
     trashcan.style.height = IMG_WIDTH + "px";
     trashcan.setAttribute("id", "trashcan");
     trashcan.style.right = IMG_MARGIN + "px";
