@@ -111,7 +111,7 @@ class PetsController < ApplicationController
 
   def addplodo
     @plodo = Plodo.new
-    @plodo.plodo_type = params[:type]
+    @plodo.plodo_type = params[:plodo_type]
     @plodo.time = params[:time]
     @plodo.info = params[:info]
     @plodo.save

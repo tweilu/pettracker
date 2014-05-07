@@ -69,14 +69,14 @@ function dropImage() {
     $("#timeline").append(img);
 }
 
-function loadImage() {
+function loadImage(plodo_type, time, info) {
     var canvas = document.getElementById("timelineCanvas");
     var img = document.createElement("img");
-    img.src = "/assets/bath-icon.jpg";
+    img.src = "/assets/"+plodo_type+"-icon.jpg";
     img.style.height = IMG_WIDTH / 2 + "px";
     img.setAttribute("class", "icon smallIcon");
-    img.style.left = "100px";
-    img.style.top = "30px";
+    img.style.left = time/3.03+"px";
+    img.style.top = "295px";
     $(img).draggable({containment: 'parent'});
     $(img).mouseup(iconMouseUp);
     $(img).mousedown(iconMouseDown);
