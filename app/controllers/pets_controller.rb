@@ -109,6 +109,16 @@ class PetsController < ApplicationController
 
   end
 
+  def addplodo
+    @plodo = Plodo.new
+    @plodo.plodo_type = params[:type]
+    @plodo.time = params[:time]
+    @plodo.info = params[:info]
+    @plodo.save
+
+    redirect_to :back
+  end
+
   def deleteevent
     @pet = Pet.find(params[:pet_id])
     @event = Event.find(params[:event_id])

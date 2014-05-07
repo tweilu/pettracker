@@ -1,2 +1,3 @@
 class PlodoController < ApplicationController
+  
 end

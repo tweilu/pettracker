@@ -69,6 +69,21 @@ function dropImage() {
     $("#timeline").append(img);
 }
 
+function loadImage() {
+    var canvas = document.getElementById("timelineCanvas");
+    var img = document.createElement("img");
+    img.src = "/assets/bath-icon.jpg";
+    img.style.height = IMG_WIDTH / 2 + "px";
+    img.setAttribute("class", "icon smallIcon");
+    img.style.left = "100px";
+    img.style.top = "30px";
+    $(img).draggable({containment: 'parent'});
+    $(img).mouseup(iconMouseUp);
+    $(img).mousedown(iconMouseDown);
+    $(img).mousemove(iconMouseMove);
+    $("#timeline").append(img);
+}
+
 function nameFromSrc(src) {
     var path = src.split("/");
     return path[path.length - 1].split("-")[0];

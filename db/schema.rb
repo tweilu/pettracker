@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507002057) do
+ActiveRecord::Schema.define(version: 20140507192801) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20140507002057) do
   end
 
   create_table "plodos", force: true do |t|
-    t.string   "type"
+    t.string   "plodo_type"
     t.string   "time"
     t.string   "info"
     t.integer  "pet_id"

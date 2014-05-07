@@ -14,10 +14,14 @@ Pettracker::Application.routes.draw do
     post 'addsitter', on: :member
   end
   
+  post 'pets/addplodo' => 'pets#addplodo'
+
   root 'static_pages#home'
 
   get 'static_pages/home'
   get 'static_pages/about'
+
+  get 'plodos/new'
 
   match '/about', to: 'static_pages#about', via: 'get'
 
