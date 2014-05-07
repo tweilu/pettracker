@@ -1,0 +1,2 @@
+class PlodoController < ApplicationController
+end
