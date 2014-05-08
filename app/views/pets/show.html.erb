@@ -165,7 +165,7 @@
 
   <% Plodo.all.each do |plodo| %>
     <script>
-      loadImage("<%= plodo.plodo_type %>", <%= plodo.time %>, "<%= plodo.info %>");
+      loadImage("<%= plodo.plodo_type %>", "<%= plodo.time %>", "<%= plodo.info %>");
     </script>
   <% end %>
 
@@ -173,11 +173,10 @@
 </div>
 
 <%= form_tag pets_addplodo_path, :id => 'add_plodo_form', :method => :post, :remote => true do %>
-  <%= hidden_field_tag :plodo_type, "bath" %>
-  <%= hidden_field_tag :time, "1220" %>
-  <%= hidden_field_tag :info, "hi" %>
+  <%= hidden_field_tag :plodo_type, "empty", :id => 'add_plodo_form_type' %>
+  <%= hidden_field_tag :time, "empty", :id => 'add_plodo_form_time' %>
+  <%= hidden_field_tag :info, "empty", :id => 'add_plodo_form_info' %>
   <%= button_tag(type: 'submit', :name => 'add_plodo', :style => "display: none") do %>
-    Add
   <% end %>
   
 <% end %>

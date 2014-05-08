@@ -43,12 +43,13 @@ function createNote(x, y) {
 }
 
 function loadImage(plodo_type, time, info) {
+    console.log("loading: " + plodo_type+" "+time+" "+info)
     var canvas = document.getElementById("timelineCanvas");
     var img = document.createElement("img");
     img.src = "/assets/"+plodo_type+"-icon.jpg";
     img.style.height = IMG_WIDTH / 2 + "px";
     img.setAttribute("class", "icon smallIcon");
-    img.style.left = time/3.03+"px";
+    img.style.left = time;
     img.style.top = "315px";
     $(img).draggable({containment: 'parent'});
     $(img).on("dragstop", function (event, ui) {
@@ -87,8 +88,6 @@ function tileNewPlace(target) {
     canvas.width = canvas.width;
 
     if(true) { // check for removal!((target.offsetLeft + 0.5*IMG_WIDTH > $("#trashcan").position().left) && (target.offsetTop < $("#trashcan").position().top + 0.5*IMG_WIDTH)) && target.offsetTop > TOP_ZONE) {
-        $("#add_plodo_form").submit();
-
         // Make the smallIcon and put it on the timeline
         var canvas = document.getElementById("timelineCanvas");
         var img = document.createElement("img");
@@ -109,6 +108,15 @@ function tileNewPlace(target) {
         });
         $("#timeline").append(img);
         createNote(img.offsetLeft + IMG_WIDTH / 2, 290);
+
+        // Send form data
+        $("#add_plodo_form_type")[0].value = nameFromSrc(target.src);
+        $("#add_plodo_form_time")[0].value = img.style.left;
+        $("#add_plodo_form_info")[0].value = " ";
+        console.log($("#add_plodo_form_type")[0].value);
+        console.log($("#add_plodo_form_time")[0].value);
+        console.log($("#add_plodo_form_info")[0].value);
+        $("#add_plodo_form").submit();
 
         // Restore icon to original place
         var offsetIndex = symbols.indexOf(nameFromSrc(target.src));

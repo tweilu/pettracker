@@ -6111,7 +6111,7 @@ function HorizontalPositionCache(getElement) {
 
 
 $(document).ready(function() {
-	console.log($('.fc-header-right').html());
+	
 })
       
 

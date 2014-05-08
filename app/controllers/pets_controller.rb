@@ -114,10 +114,10 @@ class PetsController < ApplicationController
     @plodo.plodo_type = params[:plodo_type]
     @plodo.time = params[:time]
     @plodo.info = params[:info]
-    @plodo.save
-
-    respond_to do |format|
-      format.js
+    if @plodo.save
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
