@@ -67,6 +67,7 @@ function dropImage() {
     $(img).mousedown(iconMouseDown);
     $(img).mousemove(iconMouseMove);
     $("#timeline").append(img);
+    $("#add_plodo_form").submit();
 }
 
 function loadImage(plodo_type, time, info) {
@@ -221,4 +222,6 @@ $(document).ready(function() {
     $("#timelineCanvas").click(function() {
         $("#note").remove();
     });
+
+    $('#add_event_form');
 });

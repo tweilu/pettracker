@@ -116,7 +116,9 @@ class PetsController < ApplicationController
     @plodo.info = params[:info]
     @plodo.save
 
-    redirect_to :back
+    respond_to do |format|
+      format.js
+    end
   end
 
   def deleteevent

@@ -133,7 +133,6 @@
 
       });
 
-
     });
     
   </script>
@@ -163,26 +162,25 @@
 
 <div id="timeline">
   <canvas id="timelineCanvas" height="400" width="852"></canvas>
+
   <% Plodo.all.each do |plodo| %>
-    <script>loadImage("<%= plodo.plodo_type %>", <%= plodo.time %>, "<%= plodo.info %>");</script>
+    <script>
+      loadImage("<%= plodo.plodo_type %>", <%= plodo.time %>, "<%= plodo.info %>");
+    </script>
   <% end %>
+
   <%= image_tag "timeline.png", :id => "timelineImage", :style => "horizontal-align: middle" %>
-  
-
 </div>
 
-<div id="add-plodo">
-  <%= form_tag pets_addplodo_path, :id => 'add_event_form', :method => :post do %>
-    <%= hidden_field_tag :plodo_type, "bath" %>
-    <%= hidden_field_tag :time, "1220" %>
-    <%= hidden_field_tag :info, "hi" %>
-    <%= button_tag(type: 'submit', class: 'btn btn-default btn-xs', :name => 'add_plodo') do %>
-      Add
-    <% end %>
-    
+<%= form_tag pets_addplodo_path, :id => 'add_plodo_form', :method => :post, :remote => true do %>
+  <%= hidden_field_tag :plodo_type, "bath" %>
+  <%= hidden_field_tag :time, "1220" %>
+  <%= hidden_field_tag :info, "hi" %>
+  <%= button_tag(type: 'submit', :name => 'add_plodo', :style => "display: none") do %>
+    Add
   <% end %>
   
-</div>
+<% end %>
 
 
 <%= javascript_include_tag "timeline" %>
