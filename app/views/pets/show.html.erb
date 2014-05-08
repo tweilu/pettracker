@@ -161,7 +161,7 @@
 
 
 <div id="timeline">
-  <canvas id="timelineCanvas" height="400" width="852"></canvas>
+  <canvas id="timelineCanvas" height="400" width="854"></canvas>
 
   <% Plodo.all.each do |plodo| %>
     <script>
@@ -184,8 +184,35 @@
 
 
 <%= javascript_include_tag "timeline" %>
+<script>
+    getRandomPet();
+</script>
+
+<h3> Photos </h3>
+<table>
+<tr><td>
+<div id="photos">
+<div class="crop"><img src="/assets/stockphotos/dog1.jpg"/></div>
+<div class="crop"><img src="/assets/stockphotos/dog2.jpg"/></div>
+</div>
+</td></tr>
+<tr><td>
+<div id="uploader"><span style="vartical-align: middle; position: relative; top:35px;">Drag photos here to upload</span></div>
+</td></tr>
+</table>
 
 
+<script>
+    function onDrop(e) {
+        e.preventDefault();
+        addRandomPet();
+    }
+    $(document).ready(function() {
+            var uploader = document.getElementById("uploader");
+            uploader.addEventListener('dragover', function(e){e.preventDefault();}, true);
+            uploader.addEventListener('drop', onDrop, true);
+    });
+</script>
 
 
 
