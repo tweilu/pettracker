@@ -28,6 +28,7 @@
 
 .smallIcon {
     z-index: 11;
+    opacity: 1.0;
     border-radius: 5px;
 }
 
@@ -36,12 +37,10 @@
 }
 
 .largeIcon {
-    opacity:0.4;
     border-radius: 10px;
 }
 
 .topIcon {
-    opacity:0.4;
     border-radius: 10px;
 }
 

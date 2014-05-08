@@ -2,9 +2,6 @@ var symbols = ["fun", "bath", "medicine", "walk", "feed"];
 var IMG_WIDTH = 80;
 var IMG_SPACING = 30;
 var IMG_MARGIN = 20;
-var dragging = false;
-var staticDragging = false;
-var draggedImage;
 var TOP_ZONE = 100;
 
 function createNote(x, y) {
@@ -45,27 +42,6 @@ function createNote(x, y) {
     $("#timeline").append(note);
 }
 
-function dropImage() {
-    $(".smallIcon").each(function() {
-        var center = draggedImage.offsetLeft + IMG_WIDTH / 2;
-        var left = this.offsetLeft - IMG_WIDTH / 2;
-        var right = this.offsetLeft + IMG_WIDTH;
-    });
-    var canvas = document.getElementById("timelineCanvas");
-    var img = document.createElement("img");
-    img.src = draggedImage.src;
-    img.style.height = IMG_WIDTH / 2 + "px";
-    img.setAttribute("class", "icon smallIcon");
-    img.style.left = draggedImage.offsetLeft + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
-    img.style.top = "315px";
-    $(img).draggable({containment: 'parent'});
-    $(img).mouseup(iconMouseUp);
-    $(img).mousedown(iconMouseDown);
-    $(img).mousemove(iconMouseMove);
-    $("#timeline").append(img);
-    $("#add_plodo_form").submit();
-}
-
 function loadImage(plodo_type, time, info) {
     var canvas = document.getElementById("timelineCanvas");
     var img = document.createElement("img");
@@ -75,9 +51,15 @@ function loadImage(plodo_type, time, info) {
     img.style.left = time/3.03+"px";
     img.style.top = "315px";
     $(img).draggable({containment: 'parent'});
-    $(img).mouseup(iconMouseUp);
-    $(img).mousedown(iconMouseDown);
-    $(img).mousemove(iconMouseMove);
+    $(img).on("dragstop", function (event, ui) {
+        tileDrop(event.currentTarget);
+    });
+    $(img).on("drag", function (event, ui) {
+        tileDrag(event.currentTarget);
+    });
+    $(img).on("click", function (event, ui) {
+        toggleNote(event.currentTarget);
+    });
     $("#timeline").append(img);
 }
 
@@ -86,91 +68,75 @@ function nameFromSrc(src) {
     return path[path.length - 1].split("-")[0];
 }
 
-function topIconDown() {
-    var img = document.createElement("img");
-    img.src = this.src;
-    img.setAttribute("class", "icon largeIcon");
-    img.style.height = IMG_WIDTH + "px";
-    img.style.left = this.style.left;
-    img.style.top = this.style.top;
-    img.style.zIndex = "1";
-    $(img).mouseup(iconMouseUp);
-    $(img).draggable({containment: 'parent'});
-    $(img).mousedown(iconMouseDown);
-    $(img).mousemove(iconMouseMove);
-    $("#timeline").append(img);
-    $(img).mousedown();
-}
-
-
-function iconMouseUp() {
-    if(this === draggedImage) {
-        dragging = false;
-        this.style.zIndex = "1";
-        var offset = symbols.indexOf(nameFromSrc(this.src));
-        var canvas = document.getElementById("timelineCanvas");
-        canvas.width = canvas.width;
-
-        if(!((this.offsetLeft + 0.5*IMG_WIDTH > $("#trashcan").position().left) && (this.offsetTop < $("#trashcan").position().top + 0.5*IMG_WIDTH)) && this.offsetTop > TOP_ZONE) {
-            dropImage();
-            createNote(this.offsetLeft + IMG_WIDTH / 2, 345);
-        }
-
-        this.style.top = IMG_MARGIN + "px";
-        this.style.left = IMG_MARGIN + offset*(IMG_WIDTH + IMG_SPACING) + "px";
-    }
-}
-
-function staticMouseUp() {
-    if(this === draggedImage) {
-        this.style.zIndex = "1";
-        staticDragging = false;
-        var offset = symbols.indexOf(this.id);
-        var canvas = document.getElementById("timelineCanvas");
-        canvas.width = canvas.width;
-        var leftOffset = this.offsetLeft;
-        var src = this.src;
-        
-        if(!(( + this.offsetLeft + 0.5*IMG_WIDTH > $("#trashcan").position().left) && (this.offsetTop < $("#trashcan").position().top + 0.5*IMG_WIDTH)) && this.offsetTop > TOP_ZONE) {
-            var img = document.createElement("img");
-            img.src = src;
-            img.style.height = IMG_WIDTH / 2 + "px";
-            img.setAttribute("class", "icon smallIcon");
-            img.style.left = leftOffset + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
-            img.style.top = 315 + "px";
-            $(img).draggable({containment: 'parent'});
-            $(img).mouseup(iconMouseUp);
-            $(img).mousedown(iconMouseDown);
-            $(img).mousemove(iconMouseMove);
-            dropImage();
-            $("#timeline").append(img);
-            createNote(this.offsetLeft + IMG_WIDTH / 2, 345);
-        }
-        this.remove();
-    }
-}
-
-function iconMouseDown() {
-    draggedImage = this;
-    dragging = true;
-    this.style.height = IMG_WIDTH + "px";
-    this.style.zIndex = "12";
+function tileDrag(target) {
     $("#note").remove();
-}
 
-function iconMouseMove() {
+    target.style.height = IMG_WIDTH + "px";
+    target.style.zIndex = "12";
+
     var canvas = document.getElementById("timelineCanvas");
     var ctx = canvas.getContext("2d");
     canvas.width = canvas.width;
-    if(dragging && this.offsetTop > TOP_ZONE) {
-        ctx.moveTo(this.offsetLeft + canvas.offsetLeft + IMG_WIDTH/2, this.offsetTop + IMG_WIDTH/2);
-        ctx.lineTo(this.offsetLeft + canvas.offsetLeft + IMG_WIDTH/2, 335);
-        ctx.stroke();
+    ctx.moveTo(target.offsetLeft + canvas.offsetLeft + IMG_WIDTH/2, target.offsetTop + IMG_WIDTH/2);
+    ctx.lineTo(target.offsetLeft + canvas.offsetLeft + IMG_WIDTH/2, 335);
+    ctx.stroke();
+}
+
+function tileNewPlace(target) {
+    var canvas = document.getElementById("timelineCanvas");
+    canvas.width = canvas.width;
+
+    if(true) { // check for removal!((target.offsetLeft + 0.5*IMG_WIDTH > $("#trashcan").position().left) && (target.offsetTop < $("#trashcan").position().top + 0.5*IMG_WIDTH)) && target.offsetTop > TOP_ZONE) {
+        $("#add_plodo_form").submit();
+
+        // Make the smallIcon and put it on the timeline
+        var canvas = document.getElementById("timelineCanvas");
+        var img = document.createElement("img");
+        img.src = target.src;
+        img.style.height = IMG_WIDTH / 2 + "px";
+        img.setAttribute("class", "icon smallIcon");
+        img.style.left = target.offsetLeft + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
+        img.style.top = "315px";
+        $(img).draggable({containment: 'parent'});
+        $(img).on("dragstop", function (event, ui) {
+            tileDrop(event.currentTarget);
+        });
+        $(img).on("drag", function (event, ui) {
+            tileDrag(event.currentTarget);
+        });
+        $(img).on("click", function (event, ui) {
+            toggleNote(event.currentTarget);
+        });
+        $("#timeline").append(img);
+        createNote(img.offsetLeft + IMG_WIDTH / 2, 290);
+
+        // Restore icon to original place
+        var offsetIndex = symbols.indexOf(nameFromSrc(target.src));
+        target.style.zIndex = "1";
+        target.style.left = IMG_MARGIN + offsetIndex*(IMG_WIDTH + IMG_SPACING) + "px";
+        target.style.top = IMG_MARGIN + "px";
+    } else {
+        target.remove();
     }
 }
 
+function tileDrop(target) {
+    var canvas = document.getElementById("timelineCanvas");
+    canvas.width = canvas.width;
 
+    target.style.height = IMG_WIDTH / 2 + "px";
+    target.style.top = "315px";
+    target.style.left = target.offsetLeft + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
+    
+    createNote(target.offsetLeft + IMG_WIDTH / 2, 290);
+}
 
+function toggleNote(target) {
+    if ($("#note").length)
+        $("#note").remove();
+    else
+        createNote(target.offsetLeft + IMG_WIDTH / 2, 290);
+}
 
 function initialize() {
 
@@ -185,10 +151,13 @@ function initialize() {
         img.style.left = IMG_MARGIN + i*(IMG_WIDTH + IMG_SPACING) + "px";
         img.style.top = IMG_MARGIN + "px";
         img.style.zIndex = "1";
-        $(img).mouseup(iconMouseUp);
         $(img).draggable({containment: 'parent'});
-        $(img).mousedown(iconMouseDown);
-        $(img).mousemove(iconMouseMove);
+        $(img).on("dragstop", function (event, ui) {
+            tileNewPlace(event.currentTarget);
+        });
+        $(img).on("drag", function (event, ui) {
+            tileDrag(event.currentTarget);
+        });
         $("#timeline").append(img);
 
         var img = document.createElement("img");
@@ -197,7 +166,6 @@ function initialize() {
         img.style.height = IMG_WIDTH + "px";
         img.style.left = IMG_MARGIN + i*(IMG_WIDTH + IMG_SPACING) + "px";
         img.style.top = IMG_MARGIN + "px";
-        $(img).mousedown(topIconDown);
         $("#timeline").append(img);
     }
 
@@ -209,7 +177,6 @@ function initialize() {
     trashcan.style.right = IMG_MARGIN + "px";
     trashcan.style.top = IMG_MARGIN + "px";
     $("#timeline").append(trashcan);
-
 }
 
 
