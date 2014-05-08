@@ -46,14 +46,10 @@ function createNote(x, y) {
 }
 
 function dropImage() {
-    var min = 315;
     $(".smallIcon").each(function() {
         var center = draggedImage.offsetLeft + IMG_WIDTH / 2;
         var left = this.offsetLeft - IMG_WIDTH / 2;
         var right = this.offsetLeft + IMG_WIDTH;
-        if((left < center) && (center < right)) {
-            min = Math.min(min, this.offsetTop - IMG_WIDTH / 2);
-        }
     });
     var canvas = document.getElementById("timelineCanvas");
     var img = document.createElement("img");
@@ -61,7 +57,7 @@ function dropImage() {
     img.style.height = IMG_WIDTH / 2 + "px";
     img.setAttribute("class", "icon smallIcon");
     img.style.left = draggedImage.offsetLeft + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
-    img.style.top = min + "px";
+    img.style.top = "315px";
     $(img).draggable({containment: 'parent'});
     $(img).mouseup(iconMouseUp);
     $(img).mousedown(iconMouseDown);
@@ -77,7 +73,7 @@ function loadImage(plodo_type, time, info) {
     img.style.height = IMG_WIDTH / 2 + "px";
     img.setAttribute("class", "icon smallIcon");
     img.style.left = time/3.03+"px";
-    img.style.top = "295px";
+    img.style.top = "315px";
     $(img).draggable({containment: 'parent'});
     $(img).mouseup(iconMouseUp);
     $(img).mousedown(iconMouseDown);
