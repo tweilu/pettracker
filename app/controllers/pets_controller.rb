@@ -114,12 +114,27 @@ class PetsController < ApplicationController
     @plodo.plodo_type = params[:plodo_type]
     @plodo.time = params[:time]
     @plodo.info = params[:info]
-    if @plodo.save
-      respond_to do |format|
-        format.js
-      end
+    @plodo.rand = params[:rand]
+    @plodo.save
+    @pet = Pet.find(params[:pet_id])
+    @pet.plodos << @plodo
+
+    respond_to do |format|
+      format.js
     end
   end
+
+  def editplodo
+    @plodo = Plodo.where(:rand => params[:rand]).first
+    @plodo.time = params[:time]
+    @plodo.info = params[:info]
+    @plodo.save
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   def deleteevent
     @pet = Pet.find(params[:pet_id])

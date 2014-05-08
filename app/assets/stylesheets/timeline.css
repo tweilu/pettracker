@@ -33,7 +33,7 @@
 }
 
 .icon {
-    position: absolute;
+    position: absolute !important;
 }
 
 .largeIcon {
