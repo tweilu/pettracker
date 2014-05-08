@@ -279,7 +279,10 @@ input[type=file] {
   margin-bottom: 10px;
 }
 .logo .logo-text {
-  color:#000;
+  opacity:0.9;
+}
+.logo .logo-text:hover {
+  opacity:1;
 }
 .logo .about-link {
   font-size: .45em;
