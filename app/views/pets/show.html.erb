@@ -163,9 +163,9 @@
 <div id="timeline">
   <canvas id="timelineCanvas" height="400" width="854"></canvas>
 
-  <% Plodo.all.each do |plodo| %>
+  <% @pet.plodos.each do |plodo| %>
     <script>
-      loadImage("<%= plodo.plodo_type %>", "<%= plodo.time %>", "<%= plodo.info %>");
+      loadImage("<%= plodo.plodo_type %>", "<%= plodo.time %>", "<%= plodo.info %>", "<%= plodo.rand %>");
     </script>
   <% end %>
 
@@ -176,9 +176,18 @@
   <%= hidden_field_tag :plodo_type, "empty", :id => 'add_plodo_form_type' %>
   <%= hidden_field_tag :time, "empty", :id => 'add_plodo_form_time' %>
   <%= hidden_field_tag :info, "empty", :id => 'add_plodo_form_info' %>
+  <%= hidden_field_tag :rand, "empty", :id => 'add_plodo_form_rand' %>
+  <%= hidden_field_tag :pet_id, @pet.id %>
   <%= button_tag(type: 'submit', :name => 'add_plodo', :style => "display: none") do %>
   <% end %>
-  
+<% end %>
+
+<%= form_tag pets_editplodo_path, :id => 'edit_plodo_form', :method => :post, :remote => true do %>
+  <%= hidden_field_tag :time, "empty", :id => 'edit_plodo_form_time' %>
+  <%= hidden_field_tag :info, "empty", :id => 'edit_plodo_form_info' %>
+  <%= hidden_field_tag :rand, "empty", :id => 'edit_plodo_form_rand' %>
+  <%= button_tag(type: 'submit', :name => 'edit_plodo', :style => "display: none") do %>
+  <% end %>
 <% end %>
 
 

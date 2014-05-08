@@ -15,6 +15,7 @@ Pettracker::Application.routes.draw do
   end
   
   post 'pets/addplodo' => 'pets#addplodo'
+  post 'pets/editplodo' => 'pets#editplodo'
 
   root 'static_pages#home'
 

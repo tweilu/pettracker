@@ -4,26 +4,28 @@ var IMG_SPACING = 30;
 var IMG_MARGIN = 20;
 var TOP_ZONE = 100;
 
-function createNote(x, y) {
+function createNote(x, y, target) {
     var note = document.createElement("div");
+    $(note).data("target", target);
     note.setAttribute("id", "note");
     note.style.left = x + "px";
     note.style.top = y + "px";
     note.style.backgroundColor = "white";
 
-    var f = document.createElement("form");
-    f.setAttribute("method", "post");
-    f.setAttribute("action", "submit.php");
+    var f = document.createElement("text");
 
     var text = document.createElement("textarea");
     text.setAttribute("rows", "4");
     text.setAttribute("cols", "30");
-    text.setAttribute("placeholder", "Details...");
+    text.setAttribute("id", "notevalue");
+    text.value = $(target).data("info");
 
     var s = document.createElement("input");
     s.setAttribute("type", "submit");
-    s.setAttribute("value", "save");
-
+    s.setAttribute("value", "Close");
+    $(s).on("click", function (event, ui) {
+        toggleNote(target);
+    });
     var tbdy = document.createElement("tbody");
     var tr = document.createElement("tr");
     var td = document.createElement("td");
@@ -42,15 +44,18 @@ function createNote(x, y) {
     $("#timeline").append(note);
 }
 
-function loadImage(plodo_type, time, info) {
-    console.log("loading: " + plodo_type+" "+time+" "+info)
+function loadImage(plodo_type, time, info, rand) {
     var canvas = document.getElementById("timelineCanvas");
     var img = document.createElement("img");
     img.src = "/assets/"+plodo_type+"-icon.jpg";
     img.style.height = IMG_WIDTH / 2 + "px";
     img.setAttribute("class", "icon smallIcon");
+    img.setAttribute("id", rand);
     img.style.left = time;
     img.style.top = "315px";
+    
+    $(img).data("info", info);
+
     $(img).draggable({containment: 'parent'});
     $(img).on("dragstop", function (event, ui) {
         tileDrop(event.currentTarget);
@@ -70,6 +75,7 @@ function nameFromSrc(src) {
 }
 
 function tileDrag(target) {
+    saveNote(target);
     $("#note").remove();
 
     target.style.height = IMG_WIDTH + "px";
@@ -81,6 +87,12 @@ function tileDrag(target) {
     ctx.moveTo(target.offsetLeft + canvas.offsetLeft + IMG_WIDTH/2, target.offsetTop + IMG_WIDTH/2);
     ctx.lineTo(target.offsetLeft + canvas.offsetLeft + IMG_WIDTH/2, 335);
     ctx.stroke();
+}
+
+function saveNote(target) {
+    if ($("#note").length) {
+        $(target).data("info", $("#notevalue").val());
+    }
 }
 
 function tileNewPlace(target) {
@@ -96,6 +108,9 @@ function tileNewPlace(target) {
         img.setAttribute("class", "icon smallIcon");
         img.style.left = target.offsetLeft + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
         img.style.top = "315px";
+        var randStr = randomString();
+        img.id = randStr;
+        $(img).data("info", "Enter details here!");
         $(img).draggable({containment: 'parent'});
         $(img).on("dragstop", function (event, ui) {
             tileDrop(event.currentTarget);
@@ -107,15 +122,13 @@ function tileNewPlace(target) {
             toggleNote(event.currentTarget);
         });
         $("#timeline").append(img);
-        createNote(img.offsetLeft + IMG_WIDTH / 2, 290);
+        createNote(img.offsetLeft + IMG_WIDTH / 2, 290, img);
 
         // Send form data
         $("#add_plodo_form_type")[0].value = nameFromSrc(target.src);
         $("#add_plodo_form_time")[0].value = img.style.left;
-        $("#add_plodo_form_info")[0].value = " ";
-        console.log($("#add_plodo_form_type")[0].value);
-        console.log($("#add_plodo_form_time")[0].value);
-        console.log($("#add_plodo_form_info")[0].value);
+        $("#add_plodo_form_info")[0].value = $(img).data("info");
+        $("#add_plodo_form_rand")[0].value = randStr;
         $("#add_plodo_form").submit();
 
         // Restore icon to original place
@@ -136,14 +149,26 @@ function tileDrop(target) {
     target.style.top = "315px";
     target.style.left = target.offsetLeft + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
     
-    createNote(target.offsetLeft + IMG_WIDTH / 2, 290);
+    createNote(target.offsetLeft + IMG_WIDTH / 2, 290, target);
+
+    sendEditForm(target);
+}
+
+function sendEditForm(target) {
+    // Send form data
+    $("#edit_plodo_form_time")[0].value = target.style.left;
+    $("#edit_plodo_form_info")[0].value = $(target).data("info");
+    $("#edit_plodo_form_rand")[0].value = target.id;
+    $("#edit_plodo_form").submit();
 }
 
 function toggleNote(target) {
-    if ($("#note").length)
+    if ($("#note").length) {
+        saveNote(target);
         $("#note").remove();
-    else
-        createNote(target.offsetLeft + IMG_WIDTH / 2, 290);
+        sendEditForm(target);
+    } else
+        createNote(target.offsetLeft + IMG_WIDTH / 2, 290, target);
 }
 
 function initialize() {
@@ -187,12 +212,15 @@ function initialize() {
     $("#timeline").append(trashcan);
 }
 
+function randomString() {
+    var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var result = '';
+    for (var i = 15; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+}
 
 $(document).ready(function() {
     initialize();
-    $("#timelineCanvas").click(function() {
-        $("#note").remove();
-    });
 
     $('#add_event_form');
 });
