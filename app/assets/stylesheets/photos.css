@@ -1,0 +1,27 @@
+.crop {
+    width: 206px;
+    height: 206px;
+    margin: 5px;
+    overflow: hidden;
+    float: left;
+}
+
+.crop img {
+    height: 206px;
+    margin: 0 auto;
+}
+
+#photos {
+    width: 900px;
+    position: relative;
+    left: -5px;
+}
+
+#uploader {
+    background-color: #CCCCCC;
+    height: 120px;
+    width: 854px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 200%;
+}
