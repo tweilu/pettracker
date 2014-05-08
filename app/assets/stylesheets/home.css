@@ -1,0 +1,21 @@
+#signin {
+    position: relative;
+    top: 25px;
+    font-size: 150%;
+    color: white;
+}
+
+#signup {
+    position: relative;
+    font-size: 150%;
+    color: white;
+    top: 25px;
+}
+
+.homespan {
+    position: absolute;
+    display: inline-block;
+    text-align: center;
+    height: 80px;
+    background-color: #D86759;
+}
