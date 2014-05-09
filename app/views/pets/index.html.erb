@@ -10,7 +10,7 @@
           &nbsp;&nbsp;
           <%= submit_tag 'Remove Sitter', {:name => 'removesitter_btn', :class => 'btn btn-primary', confirm: "Are you sure you would like to remove sitters from these pets?", :id => 'removesitter_btn'} %>
           <%= button_tag(type: 'submit', class: 'btn btn-default btn-reject', name: 'delete_btn', :id => 'delete_btn', :data => {confirm: "Are you sure you would like to delete these pets?"}) do %>
-            <span class="glyphicon glyphicon-trash"></span>
+            <i class="fa fa-trash-o"></i>
           <% end %>
         </div>
         <% @pets.each do |pet| %>
