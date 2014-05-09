@@ -56,6 +56,11 @@
   </div>
 </div>
 
+<%= javascript_include_tag "timeline" %>
+<%= javascript_include_tag "fullcalendar" %>
+<%= javascript_include_tag "jquery-ui" %>
+<%= javascript_include_tag "validator" %>
+
 <% if @pet.owner.id === current_user.id %>
 
   <div id="add-event" class="arrow_box">
@@ -73,9 +78,6 @@
     
   </div>
 
-<%= javascript_include_tag "timeline" %>
-<%= javascript_include_tag "fullcalendar" %>
-<%= javascript_include_tag "jquery-ui" %>
 
   <script>
     $(document).ready(function() {
@@ -146,6 +148,9 @@
 <% end %>
 
 <script>
+
+  var petphotolist = ["bird1.jpg",  "bunny1.jpg",  "cat1.jpg",  "cat2.jpg",  "cat3.jpg", "cat4.jpg", "cat5.jpg", "cat6.jpg", "cuttlefish1.jpg",  "dog1.jpg",  "dog2.jpg",  "dog3.jpg", "dog4.jpg", "dog5.jpg", "dog6.jpg", "dog7.jpg", "hedgehog1.jpg", "hedgehog2.jpg", "pig1.jpg", "seahorse1.jpg", "sloth1.jpg", "sloth2.jpg", "sloth3.jpg",  "hamster1.jpg",  "turtle1.jpg"];
+
 
   $('#close-event-info').click(function(e) {
     e.preventDefault();
