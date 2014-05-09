@@ -26,11 +26,13 @@ function addSpecificPet(src) {
     $("#photos").append(div);
 }
 
-function getNonrandomPet(s) {
-    return "/assets/stockphotos/" + petphotolist[((hashCode(s) % petphotolist.length) + petphotolist.length) % petphotolist.length];
-}
-
 
 hashCode = function(s){
       return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
 }
+
+
+function getNonrandomPet(s) {
+    return "/assets/stockphotos/" + petphotolist[((hashCode(s) % petphotolist.length) + petphotolist.length) % petphotolist.length];
+}
+
