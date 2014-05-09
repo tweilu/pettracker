@@ -22,7 +22,7 @@ function createNote(x, y, target) {
 
     var s = document.createElement("input");
     s.setAttribute("type", "submit");
-    s.setAttribute("value", "Close");
+    s.setAttribute("value", "Okay");
     $(s).on("click", function (event, ui) {
         toggleNote(target);
     });
@@ -81,12 +81,51 @@ function tileDrag(target) {
     target.style.height = IMG_WIDTH + "px";
     target.style.zIndex = "12";
 
+    if ($(target).hasClass("smallIcon")) {
+        // If small icon, don't display lines over the trash
+        if (!overTrash(target)) {
+            drawTimelineLine(target);
+        } else {
+            clearCanvas();
+        }
+    } else {
+        // If large icon, don't display lines over the trash or the original icon
+        if (!overTrash(target) && !overOriginal(target)) {
+            drawTimelineLine(target);
+        } else {
+            clearCanvas();
+        }
+    }
+}
+
+function overTrash(target) {
+    var vertical = target.offsetTop < $("#trashcan").position().top + 0.5*IMG_WIDTH;
+    var horizontal = target.offsetLeft > $("#trashcan").position().left - 0.5*IMG_WIDTH;
+    return (vertical && horizontal);
+}
+
+function overOriginal(target) {
+    var offsetIndex = symbols.indexOf(nameFromSrc(target.src));
+    var offset = IMG_MARGIN + offsetIndex*(IMG_WIDTH + IMG_SPACING);
+    var vertical = target.offsetTop < IMG_MARGIN + 0.5*IMG_WIDTH;
+    var left = target.offsetLeft > offset - 0.5*IMG_WIDTH;
+    var right = target.offsetLeft < offset + 0.5*IMG_WIDTH;
+    return (vertical && left && right);
+}
+
+function drawTimelineLine(target) {
     var canvas = document.getElementById("timelineCanvas");
     var ctx = canvas.getContext("2d");
     canvas.width = canvas.width;
     ctx.moveTo(target.offsetLeft + canvas.offsetLeft + IMG_WIDTH/2, target.offsetTop + IMG_WIDTH/2);
     ctx.lineTo(target.offsetLeft + canvas.offsetLeft + IMG_WIDTH/2, 335);
     ctx.stroke();
+}
+
+function clearCanvas() {
+    var canvas = document.getElementById("timelineCanvas");
+    var ctx = canvas.getContext("2d");
+    canvas.width = canvas.width;
 }
 
 function saveNote(target) {
@@ -99,7 +138,7 @@ function tileNewPlace(target) {
     var canvas = document.getElementById("timelineCanvas");
     canvas.width = canvas.width;
 
-    if(true) { // check for removal!((target.offsetLeft + 0.5*IMG_WIDTH > $("#trashcan").position().left) && (target.offsetTop < $("#trashcan").position().top + 0.5*IMG_WIDTH)) && target.offsetTop > TOP_ZONE) {
+    if (!overTrash(target) && !overOriginal(target)) {
         // Make the smallIcon and put it on the timeline
         var canvas = document.getElementById("timelineCanvas");
         var img = document.createElement("img");
@@ -130,28 +169,34 @@ function tileNewPlace(target) {
         $("#add_plodo_form_info")[0].value = $(img).data("info");
         $("#add_plodo_form_rand")[0].value = randStr;
         $("#add_plodo_form").submit();
-
-        // Restore icon to original place
-        var offsetIndex = symbols.indexOf(nameFromSrc(target.src));
-        target.style.zIndex = "1";
-        target.style.left = IMG_MARGIN + offsetIndex*(IMG_WIDTH + IMG_SPACING) + "px";
-        target.style.top = IMG_MARGIN + "px";
-    } else {
-        target.remove();
     }
+
+    // Restore icon to original place
+    var offsetIndex = symbols.indexOf(nameFromSrc(target.src));
+    target.style.zIndex = "1";
+    target.style.left = IMG_MARGIN + offsetIndex*(IMG_WIDTH + IMG_SPACING) + "px";
+    target.style.top = IMG_MARGIN + "px";
 }
 
 function tileDrop(target) {
     var canvas = document.getElementById("timelineCanvas");
     canvas.width = canvas.width;
 
-    target.style.height = IMG_WIDTH / 2 + "px";
-    target.style.top = "315px";
-    target.style.left = target.offsetLeft + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
-    
-    createNote(target.offsetLeft + IMG_WIDTH / 2, 290, target);
+    if (!overTrash(target)) {
+        target.style.height = IMG_WIDTH / 2 + "px";
+        target.style.top = "315px";
+        target.style.left = target.offsetLeft + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
 
-    sendEditForm(target);
+        sendEditForm(target);
+    } else {
+        sendDeleteForm(target);
+        target.remove();
+    }
+}
+
+function sendDeleteForm(target) {
+    $("#delete_plodo_form_rand")[0].value = target.id;
+    $("#delete_plodo_form").submit();
 }
 
 function sendEditForm(target) {
@@ -221,6 +266,5 @@ function randomString() {
 
 $(document).ready(function() {
     initialize();
-
     $('#add_event_form');
 });

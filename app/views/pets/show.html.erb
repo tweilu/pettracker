@@ -190,6 +190,13 @@
   <% end %>
 <% end %>
 
+<%= form_tag pets_deleteplodo_path, :id => 'delete_plodo_form', :method => :post, :remote => true do %>
+  <%= hidden_field_tag :rand, "empty", :id => 'delete_plodo_form_rand' %>
+  <%= hidden_field_tag :pet_id, @pet.id %>
+  <%= button_tag(type: 'submit', :name => 'delete_plodo', :style => "display: none") do %>
+  <% end %>
+<% end %>
+
 
 <%= javascript_include_tag "timeline" %>
 <script>
