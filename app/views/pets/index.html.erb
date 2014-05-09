@@ -83,6 +83,23 @@
   $('#removesitter_btn').attr("disabled", true);
   $('#delete_btn').attr("disabled", true);
 
+  var closing = false;
+
+  $('#addsitter_field').autocomplete({
+      source: <%= raw @sitters.to_json %>,
+      minLength: 0,
+      close: function()
+      {
+          // avoid double-pop-up issue
+          closing = true;
+          setTimeout(function() { closing = false; }, 300);
+      }
+  })
+  .focus(function() {
+      if (!closing)
+          $(this).autocomplete("search");
+  });
+
   var checkIfChecked = function() {
     if ($("#mypets-form input:checkbox:checked").length > 0)
     {

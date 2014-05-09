@@ -1,7 +1,7 @@
 <span id="petsitter-form" class="pull-right">
   <small>
     <%= form_for(@pet, :url => {:action => 'addsitter', :petid => @pet.id}, :html => { :class => "form-inline"}, :method => :POST ) do |f| %>
-      <%= f.text_field :sitter_email, {:placeholder => "Sitter Email Address", :class => 'form-control'} %>
+      <%= f.text_field :sitter_email, {:placeholder => "Sitter Email Address", :class => 'form-control', :id => 'add-sitter-field'} %>
       <%= f.submit "Add Sitter", class: "btn btn-default" %>
     <% end %>
   </small>
