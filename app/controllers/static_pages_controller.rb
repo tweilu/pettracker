@@ -4,6 +4,7 @@ class StaticPagesController < ApplicationController
   	if current_user
   		redirect_to pets_path
   	end
+  	@user = User.new
   end
 
   def about

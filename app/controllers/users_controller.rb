@@ -7,6 +7,9 @@ class UsersController < ApplicationController
   end
 
   def new
+    if current_user
+      redirect_to pets_path
+    end
     @user = User.new
   end
 

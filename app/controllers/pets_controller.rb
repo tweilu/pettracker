@@ -95,7 +95,9 @@ class PetsController < ApplicationController
     sitter = User.find_by(:email => sitteremail)
     if sitter
       @pet.update_attributes(:sitter_id => sitter.id)
-      Relationship.create(:sitter_id => sitter.id, :client_id => current_user.id)
+      if Relationship.where(sitter_id: sitter.id, client_id: current_user.id).empty?
+        Relationship.create(:sitter_id => sitter.id, :client_id => current_user.id)
+      end
     else
       flash[:danger] = 'Could not find a sitter with that email address.'
     end

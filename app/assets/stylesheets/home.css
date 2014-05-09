@@ -12,10 +12,50 @@
     top: 25px;
 }
 
+.signinbox {
+    float:right;
+    width:50%;
+    padding:10px;
+}
+.signupbox {
+    float:left;
+    width:50%;
+    padding:10px;
+    border-right:1px solid #ccc;
+}
+
 .homespan {
     position: absolute;
     display: inline-block;
     text-align: center;
     height: 80px;
     background-color: #D86759;
+}
+
+.homelogo {
+    width:500px;
+    text-align: center;
+    position:absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    margin-top:30px;
+}
+
+.homehero {
+    width: 50%;
+    height: 550px;
+    background-color: rgba(255,255,255,0.9);
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding:20px;
+
+    color:#5f9eca;
+    text-align: center;
 }
