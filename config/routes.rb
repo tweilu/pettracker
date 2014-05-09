@@ -17,6 +17,7 @@ Pettracker::Application.routes.draw do
   post 'pets/addplodo' => 'pets#addplodo'
   post 'pets/editplodo' => 'pets#editplodo'
   post 'pets/deleteplodo' => 'pets#deleteplodo'
+  post 'pets/addupdate' => 'pets#addupdate'
 
   root 'users#new'
 

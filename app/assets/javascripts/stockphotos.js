@@ -13,6 +13,17 @@ function addRandomPet() {
     div.setAttribute("class", "crop");
     div.appendChild(img);
     $("#photos").append(div);
+    $("#add_update_form_info")[0].value = img.src;
+    $("#add_update_form").submit();
+}
+
+function addSpecificPet(src) {
+    var img = document.createElement("img");
+    img.src = src;
+    var div = document.createElement("div");
+    div.setAttribute("class", "crop");
+    div.appendChild(img);
+    $("#photos").append(div);
 }
 
 function getNonrandomPet(s) {
