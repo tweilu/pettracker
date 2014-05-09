@@ -35,6 +35,24 @@ a:hover {
   src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/assets/glyphicons-halflings-regular.woff') format('woff'), url('/assets/glyphicons-halflings-regular.ttf') format('truetype'), url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
+.btn-primary {
+  background-color: #5f9eca!important;
+  color: #fff!important;
+}
+
+.btn-accept {
+  border-color: #2f8d3e!important;
+  background-color: #67cc79!important;
+  color: #fff!important;
+}
+
+.btn-reject {
+  border-color: #722726!important;
+  background-color: #b7423d!important;
+  color: #fff!important;
+}
+
+
 /* OWN PROFILE STUFF */
 .profile-link {
 	padding:10px!important;
@@ -271,7 +289,7 @@ input[type=file] {
 }
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover {
-  color: black;
+  color: #fff;
   background-color: #5f9eca;
 }
 
@@ -302,19 +320,4 @@ input[type=file] {
 
 .about {
   text-align: center;
-}
-
-.btn {
-  background-color: #5f9eca!important;
-  color: #fff!important;
-}
-
-.btn-accept {
-  border-color: #2f8d3e!important;
-  background-color: #67cc79!important;
-}
-
-.btn-reject {
-  border-color: #722726!important;
-  background-color: #b7423d!important;
 }
