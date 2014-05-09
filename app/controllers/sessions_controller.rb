@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       redirect_back_or pets_path
     else
       flash[:danger] = 'Invalid email/password combination'
-      render 'new'
+      redirect_to :back
     end
   end
 
