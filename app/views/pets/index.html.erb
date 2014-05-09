@@ -140,13 +140,13 @@
         eventClick: function(calEvent, jsEvent, view) {
 
           $('#event-info-content').html('<p>'+calEvent.title+' @ '+calEvent.time+'<br />For '+calEvent.pet_name+'</p>');
-          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-213-$('#event-info').outerWidth()/2, 'top':jsEvent.pageY+13});
+          $('#event-info').css({'display':'inline', 'position':'absolute', 'left':jsEvent.pageX-213-$('#event-info').outerWidth()/2, 'top':jsEvent.clientY+13});
 
         },
         dayClick: function(date, allDay, jsEvent, view) {
 
           $('#event_date').val(date);
-          $('#add-event').css({'display':'inline', 'position':'absolute', 'left':jsEvent.clientX-213-$('#add-event').outerWidth()/2, 'top':jsEvent.clientY+13});
+          $('#add-event').css({'display':'inline', 'position':'absolute', 'left':jsEvent.clientX-290-$('#event-info').outerWidth()/2, 'top':jsEvent.clientY+13});
           $('#event-info').css({'display':'none'});
 
         },
