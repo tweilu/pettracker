@@ -160,6 +160,25 @@
   });
 
   $('#calendar-pets').html('<p>Viewing appointments for <%= @pet.name %>.');
+  $("#add-sitter-field").autocomplete({
+    source: <%= raw @sitters.to_json %>, minLength: 0
+  });
+  var closing = false;
+
+  $('#add-sitter-field').autocomplete({
+      source: <%= raw @sitters.to_json %>,
+      minLength: 0,
+      close: function()
+      {
+          // avoid double-pop-up issue
+          closing = true;
+          setTimeout(function() { closing = false; }, 300);
+      }
+  })
+  .focus(function() {
+      if (!closing)
+          $(this).autocomplete("search");
+  });
 
 </script>
 

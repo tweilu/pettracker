@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140508221417) do
+ActiveRecord::Schema.define(version: 20140509005533) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -45,6 +45,17 @@ ActiveRecord::Schema.define(version: 20140508221417) do
     t.datetime "updated_at"
     t.string   "rand"
   end
+
+  create_table "relationships", force: true do |t|
+    t.integer  "client_id"
+    t.integer  "sitter_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relationships", ["client_id", "sitter_id"], name: "index_relationships_on_client_id_and_sitter_id", unique: true
+  add_index "relationships", ["client_id"], name: "index_relationships_on_client_id"
+  add_index "relationships", ["sitter_id"], name: "index_relationships_on_sitter_id"
 
   create_table "updates", force: true do |t|
     t.string   "date"
