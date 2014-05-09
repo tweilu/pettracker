@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 	validates :password, length: { minimum: 6 }
   has_many :my_pets, :class_name => 'Pet', :foreign_key => 'owner_id'
   has_many :sitting_pets, :class_name => 'Pet', :foreign_key => 'sitter_id'
+  has_many :relationships, foreign_key: 'client_id', dependent: :destroy
+  has_many :sitters, through: :relationships
 
 
   def User.new_remember_token

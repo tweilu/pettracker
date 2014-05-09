@@ -3,6 +3,10 @@ class PetsController < ApplicationController
   def show
     @pet = Pet.find(params[:id])
     @events = []
+    @sitters = []
+    current_user.sitters.each do |s|
+      @sitters << s.email
+    end
     @pet.events.each do |evt|
       @events << evt.as_json
     end
@@ -83,6 +87,7 @@ class PetsController < ApplicationController
     @pet = Pet.find(params[:petid])
     sitteremail = params[:pet][:sitter_email]
     sitter = User.find_by(:email => sitteremail)
+    Relationship.create(:sitter_id => sitter.id, :client_id => current_user.id)
     if sitter
       @pet.update_attributes(:sitter_id => sitter.id)
     end
