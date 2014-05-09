@@ -232,9 +232,12 @@
 <div id="photos">
 </div>
 </td></tr>
-<tr><td>
-<div id="uploader"><span style="vartical-align: middle; position: relative; top:35px;">Drag photos here to upload</span></div>
-</td></tr>
+
+<% if @pet.owner != current_user %>
+    <tr><td>
+        <div id="uploader"><span style="vartical-align: middle; position: relative; top:35px;">Drag photos here to upload</span></div>
+    </td></tr>
+<% end %>
 </table>
 
 
@@ -243,6 +246,8 @@
         e.preventDefault();
         addRandomPet();
     }
+    // Populate with one random photo
+    addRandomPet();
     $(document).ready(function() {
             var name = '<%= @pet.name %>';
             var pic = document.getElementById("pet-prof");
