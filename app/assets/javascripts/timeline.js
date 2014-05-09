@@ -47,7 +47,7 @@ function createNote(x, y, target) {
 function loadImage(plodo_type, time, info, rand) {
     var canvas = document.getElementById("timelineCanvas");
     var img = document.createElement("img");
-    img.src = "/assets/"+plodo_type+"-icon.jpg";
+    img.src = "/assets/"+plodo_type+"-icon.png";
     img.style.height = IMG_WIDTH / 2 + "px";
     img.setAttribute("class", "icon smallIcon");
     img.setAttribute("id", rand);
@@ -223,7 +223,7 @@ function initialize() {
         var offset = 0;
 
         var img = document.createElement("img");
-        img.src = "/assets/" + icon + "-icon.jpg";
+        img.src = "/assets/" + icon + "-icon.png";
         img.setAttribute("class", "icon largeIcon");
         img.style.height = IMG_WIDTH + "px";
         img.style.left = IMG_MARGIN + i*(IMG_WIDTH + IMG_SPACING) + "px";
@@ -239,7 +239,7 @@ function initialize() {
         $("#timeline").append(img);
 
         var img = document.createElement("img");
-        img.src = "/assets/" + icon + "-icon.jpg";
+        img.src = "/assets/" + icon + "-icon.png";
         img.setAttribute("class", "icon topIcon");
         img.style.height = IMG_WIDTH + "px";
         img.style.left = IMG_MARGIN + i*(IMG_WIDTH + IMG_SPACING) + "px";
