@@ -2,6 +2,7 @@ var symbols = ["fun", "bath", "medicine", "walk", "feed"];
 var IMG_WIDTH = 80;
 var IMG_SPACING = 30;
 var IMG_MARGIN = 20;
+var IMG_ON_LINE_HEIGHT = 305 + "px";
 
 function createNote(x, y, target) {
     var note = document.createElement("div");
@@ -53,7 +54,7 @@ function loadImage(plodo_type, time, info, rand) {
     img.setAttribute("class", "icon smallIcon");
     img.setAttribute("id", rand);
     img.style.left = time;
-    img.style.top = "315px";
+    img.style.top = IMG_ON_LINE_HEIGHT;
     
     $(img).data("info", info);
 
@@ -154,10 +155,10 @@ function tileNewPlace(target) {
         img.style.height = IMG_WIDTH / 2 + "px";
         img.setAttribute("class", "icon smallIcon");
         img.style.left = target.offsetLeft + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
-        img.style.top = "315px";
+        img.style.top = IMG_ON_LINE_HEIGHT;
         var randStr = randomString();
         img.id = randStr;
-        $(img).data("info", "Enter details here!");
+        $(img).data("info", "");
         $(img).draggable({containment: 'parent'});
         $(img).on("dragstop", function (event, ui) {
             tileDrop(event.currentTarget);
@@ -195,7 +196,7 @@ function tileDrop(target) {
 
     if (!overTrash(target)) {
         target.style.height = IMG_WIDTH / 2 + "px";
-        target.style.top = "315px";
+        target.style.top = IMG_ON_LINE_HEIGHT;
         target.style.left = target.offsetLeft + IMG_WIDTH / 4 + canvas.offsetLeft + "px";
 
         sendEditForm(target);
