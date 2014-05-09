@@ -1,9 +1,9 @@
 #timeline {
-    background-color: #cfddfc;
     width: 852px;
     height: 400px;
     position: relative;
     margin-bottom:20px;
+    border:2px solid #605f60;
 }
 
 #timelineCanvas {
@@ -19,10 +19,6 @@
 
 #trashcan {
     position: absolute;
-    opacity: 0.4;
-    border-radius: 10px;
-}
-#trashcan:hover {
     opacity: 1.0;
 }
 
@@ -34,6 +30,7 @@
 
 .icon {
     position: absolute !important;
+    border: 1px solid #605f60;
 }
 
 .largeIcon {
@@ -45,7 +42,15 @@
 }
 
 .icon:hover {
-    opacity:1.0;
+    border-radius: 6px;
+    box-shadow: 0 0 10px #605f60;
+    z-index: 13;
+}
+
+.selected-icon {
+    border-radius: 6px;
+    box-shadow: 0 0 10px #605f60;
+    z-index: 13;
 }
 
 #note {

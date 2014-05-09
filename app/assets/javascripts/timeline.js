@@ -2,7 +2,6 @@ var symbols = ["fun", "bath", "medicine", "walk", "feed"];
 var IMG_WIDTH = 80;
 var IMG_SPACING = 30;
 var IMG_MARGIN = 20;
-var TOP_ZONE = 100;
 
 function createNote(x, y, target) {
     var note = document.createElement("div");
@@ -18,6 +17,7 @@ function createNote(x, y, target) {
     text.setAttribute("rows", "4");
     text.setAttribute("cols", "30");
     text.setAttribute("id", "notevalue");
+    text.setAttribute("placeholder", "Enter details!");
     text.value = $(target).data("info");
 
     var s = document.createElement("input");
@@ -26,6 +26,7 @@ function createNote(x, y, target) {
     $(s).on("click", function (event, ui) {
         toggleNote(target);
     });
+
     var tbdy = document.createElement("tbody");
     var tr = document.createElement("tr");
     var td = document.createElement("td");
@@ -66,6 +67,9 @@ function loadImage(plodo_type, time, info, rand) {
     $(img).on("click", function (event, ui) {
         toggleNote(event.currentTarget);
     });
+    $(img).on("dragstart", function (event, ui) {
+        startTileDrag(event.currentTarget);
+    });
     $("#timeline").append(img);
 }
 
@@ -74,13 +78,17 @@ function nameFromSrc(src) {
     return path[path.length - 1].split("-")[0];
 }
 
-function tileDrag(target) {
+function startTileDrag(target) {
     saveNote(target);
     $("#note").remove();
+    sendEditForm(target);
+    $(target).removeClass("selected-icon");
 
     target.style.height = IMG_WIDTH + "px";
     target.style.zIndex = "12";
+}
 
+function tileDrag(target) {
     if ($(target).hasClass("smallIcon")) {
         // If small icon, don't display lines over the trash
         if (!overTrash(target)) {
@@ -160,6 +168,9 @@ function tileNewPlace(target) {
         $(img).on("click", function (event, ui) {
             toggleNote(event.currentTarget);
         });
+        $(img).on("dragstart", function (event, ui) {
+            startTileDrag(event.currentTarget);
+        });
         $("#timeline").append(img);
         createNote(img.offsetLeft + IMG_WIDTH / 2, 290, img);
 
@@ -212,8 +223,11 @@ function toggleNote(target) {
         saveNote(target);
         $("#note").remove();
         sendEditForm(target);
-    } else
+        $(target).removeClass("selected-icon");
+    } else {
         createNote(target.offsetLeft + IMG_WIDTH / 2, 290, target);
+        $(target).addClass("selected-icon");
+    }
 }
 
 function initialize() {

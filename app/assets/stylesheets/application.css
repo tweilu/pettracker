@@ -267,11 +267,12 @@ input[type=file] {
 .nav-sidebar > li > a {
   padding-right: 20px;
   padding-left: 20px;
+  color: black;
 }
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover {
-  color: #fff;
-  background-color: #428bca;
+  color: black;
+  background-color: #5f9eca;
 }
 
 .logo {
@@ -301,4 +302,17 @@ input[type=file] {
 
 .about {
   text-align: center;
+}
+
+.btn {
+  background-color: #5f9eca!important;
+  color: #000!important;
+}
+
+.btn-accept {
+  background-color: #67cc79!important;
+}
+
+.btn-reject {
+  background-color: #b7423d!important;
 }
