@@ -125,6 +125,7 @@
        var img = this.childNodes[1];
        img.src = getNonrandomPet(name);
    });
+   
     $('#calendar').fullCalendar({
         // put your options and callbacks here
         events: <%= raw @events_array.to_json %>,
