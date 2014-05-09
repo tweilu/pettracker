@@ -5,7 +5,7 @@
     <div id="mypets-container">
       <%= form_tag pets_sittingpetsactions_path, :id => 'mypets-form', :method => :post do %>
         <div class="controls form-inline">
-          <%= button_tag(type: 'submit', class: 'btn btn-default', :id => 'delete_btn', :data => {confirm: "Are you sure you would like to stop sitting these pets?"}) do %>
+          <%= button_tag(type: 'submit', class: 'btn btn-default btn-reject', :id => 'delete_btn', :data => {confirm: "Are you sure you would like to stop sitting these pets?"}) do %>
             <span class="glyphicon glyphicon-trash"></span>
           <% end %>
         </div>
