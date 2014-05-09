@@ -1,48 +1,53 @@
 <style>
-    html {
-        background: url(/assets/dogbg.jpg) no-repeat;;
+    body {
+        background: url(/assets/dogbg.jpg) no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
-        background-position: top 80px;
     }
 </style>
 <% provide(:title, 'Sign up') %>
-<div id="title" style="background-color: #0070BC; height: 80px; width: 100%;">
-<span class="homespan" style="width: 250px;"><h1 style="color:white;"> Pet Tracker </h1></span>
-<span class="homespan" style="right: 100px; width: 100px;"><%= link_to "Sign in", signin_path,:id => "signin" %></span>
-<span class="homespan" style="width: 100px; right: 0px; background-color: #FFB504;"><%= link_to "Sign up", signup_path, :id => "signup" %></span>
-</div>
+<%= image_tag('logo.png', :class => 'homelogo') %>
 
-<div style="background-color: #FFB504; width: 300px; padding: 20px; position: absolute; right: 0px;">
+<div class="homehero">
+  <h1>welcome to paw<span style="color:#67cc79">pro</span>!</h1>
+  <p>Pawpro lets you keep track of what your pets are doing when you're on vacation. Or if you're a pet sitter, you can keep track of all the necessary information to make the pets you're sitting comfortable.</p>
+  <p>What are you waiting for? JOIN US</p>
+
+  <div class="signinbox">
+    <%= form_for(:session, url: sessions_path) do |f| %>
+
+      <%= f.text_field :email, :class => 'form-control', :placeholder => "Email Address" %>
+      <br/>
+
+      <%= f.password_field :password, :class => 'form-control', :placeholder => "Password" %>
+      <br/>
+
+      <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+      </span><br/>
+    <% end %>
+  </div>
+
+  <div class="signupbox">
     <%= form_for(@user) do |f| %>
 
       <%= render 'shared/error_messages' %>
 
-      <span style="float: right; position:relative; right: 30px;">
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      </span><br/>
+      <%= f.text_field :name, :class => 'form-control', :placeholder => "Full Name" %>
+      <br/>
 
-      <span style="float: right; position:relative; right: 30px;">
-      <%= f.label :email %>
-      <%= f.text_field :email %>
-      </span><br/>
+      <%= f.text_field :email, :class => 'form-control', :placeholder => "Email Address" %>
+      <br/>
 
-      <span style="float: right; position:relative; right: 30px;">
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-      </span><br/>
+      <%= f.password_field :password, :class => 'form-control', :placeholder => "Password" %>
+      <br/>
 
-      <span style="float: right; position:relative; right: 30px;">
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation %>
-      </span><br/>
+      <%= f.password_field :password_confirmation, :class => 'form-control', :placeholder => "Password Confirmation" %>
+      <br/>
 
-      <span style="float: right; position: relative; right:30px;">
       <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-      </span>
     <% end %>
   </div>
+
 </div>
