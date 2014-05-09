@@ -18,12 +18,13 @@
 }
 
 #uploader {
-    background-color: #CCCCCC;
+    border:2px dashed #ccc;
     height: 120px;
     width: 854px;
     border-radius: 20px;
     text-align: center;
     font-size: 200%;
+    margin-bottom:5px;
 }
 
 #uppic {
@@ -48,4 +49,8 @@
     color: white;
     background-color: #888888;
     border-radius: 10px;
+}
+
+#photo-table {
+    margin-bottom: 50px;
 }

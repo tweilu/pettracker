@@ -3,7 +3,8 @@
     height: 400px;
     position: relative;
     margin-bottom:20px;
-    border:2px solid #605f60;
+    border:1px solid #3677a4;
+    border-radius: 3px;
 }
 
 #timelineCanvas {
@@ -30,7 +31,7 @@
 
 .icon {
     position: absolute !important;
-    border: 1px solid #605f60;
+    border: 1px solid #3677a4;
 }
 
 .largeIcon {
@@ -43,13 +44,13 @@
 
 .icon:hover {
     border-radius: 6px;
-    box-shadow: 0 0 10px #605f60;
+    box-shadow: 0 0 10px #3677a4;
     z-index: 13;
 }
 
 .selected-icon {
     border-radius: 6px;
-    box-shadow: 0 0 10px #605f60;
+    box-shadow: 0 0 10px #3677a4;
     z-index: 13;
 }
 

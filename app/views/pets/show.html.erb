@@ -57,6 +57,33 @@
 </div>
 
 
+
+
+<div id="timeline">
+  <canvas id="timelineCanvas" height="400" width="854"></canvas>
+
+  <% @pet.plodos.each do |plodo| %>
+    <script>
+      loadImage("<%= plodo.plodo_type %>", "<%= plodo.time %>", "<%= plodo.info %>", "<%= plodo.rand %>");
+    </script>
+  <% end %>
+
+  <%= image_tag "timeline.png", :id => "timelineImage", :style => "horizontal-align: middle" %>
+</div>
+
+<h3><span id="photo-table-header">Photo Updates</span></h3>
+<table id="photo-table">
+  <tr><td>
+    <div id="uploader"><span style="position:relative;top:35px;">Drag photos here to upload</span></div>
+  </td></tr>
+  <tr><td>
+    <div id="photos">
+    </div>
+  </td></tr>
+
+</table>
+
+
 <% if @pet.owner.id === current_user.id %>
 
   <div id="add-event" class="arrow_box">
@@ -77,6 +104,9 @@
 
   <script>
     $(document).ready(function() {
+
+      $('#uploader').hide();
+      $('#photo-table-header').html("Photo Updates From <%= @pet.name %>'s Sitter");
 
       $('#calendar').fullCalendar({
         // put your options and callbacks here
@@ -119,6 +149,8 @@
 <% else %>
   <script>
     $(document).ready(function() {
+
+      $('#photo-table-header').html("Add Photo Updates");
 
       $('#calendar').fullCalendar({
         // put your options and callbacks here
@@ -187,18 +219,6 @@
 </script>
 
 
-<div id="timeline">
-  <canvas id="timelineCanvas" height="400" width="854"></canvas>
-
-  <% @pet.plodos.each do |plodo| %>
-    <script>
-      loadImage("<%= plodo.plodo_type %>", "<%= plodo.time %>", "<%= plodo.info %>", "<%= plodo.rand %>");
-    </script>
-  <% end %>
-
-  <%= image_tag "timeline.png", :id => "timelineImage", :style => "horizontal-align: middle" %>
-</div>
-
 <%= form_tag pets_addplodo_path, :id => 'add_plodo_form', :method => :post, :remote => true do %>
   <%= hidden_field_tag :plodo_type, "empty", :id => 'add_plodo_form_type' %>
   <%= hidden_field_tag :time, "empty", :id => 'add_plodo_form_time' %>
@@ -234,18 +254,6 @@
 <script>
     getRandomPet();
 </script>
-
-<h3> Photos </h3>
-<table>
-<tr><td>
-<div id="photos">
-</div>
-</td></tr>
-
-<tr><td>
-    <div id="uploader"><span style="vertical-align: middle; position: relative; top:35px;">Drag photos here to upload</span></div>
-</td></tr>
-</table>
 
 <% @pet.updates.each do |update| %>
   <script>
