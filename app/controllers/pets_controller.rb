@@ -160,6 +160,18 @@ class PetsController < ApplicationController
     end
   end
 
+  def addupdate
+    @update = Update.new
+    @update.info = params[:info]
+    @update.save
+    @pet = Pet.find(params[:pet_id])
+    @pet.updates << @update
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def deleteevent
     @pet = Pet.find(params[:pet_id])
     @event = Event.find(params[:event_id])

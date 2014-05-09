@@ -308,6 +308,9 @@ input[type=file] {
   background-color: #5f9eca!important;
   color: #fff!important;
 }
+.btn:hover {
+  color: #605f60!important;
+}
 
 .btn-accept {
   border-color: #2f8d3e!important;

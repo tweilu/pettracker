@@ -1,7 +1,7 @@
 <h1 class="page-header">
   <%= @pet.name %>
   <span id="petsitter-info" class="pull-right">
-    <% if @pet.owner != current_user %>
+    <div id="petname"><% if @pet.owner != current_user %>
       <small>
         Owner: <%= @pet.owner.name %> | <%= link_to "Stop Sitting", pets_stopsitting_path(:petid => @pet.id), :confirm=>'Are you sure you would like to stop sitting this pet?' %>
       </small>
@@ -220,6 +220,13 @@
   <% end %>
 <% end %>
 
+<%= form_tag pets_addupdate_path, :id => 'add_update_form', :method => :post, :remote => true do %>
+  <%= hidden_field_tag :info, "empty", :id => 'add_update_form_info' %>
+  <%= hidden_field_tag :pet_id, @pet.id %>
+  <%= button_tag(type: 'submit', :name => 'add_update', :style => "display: none") do %>
+  <% end %>
+<% end %>
+
 
 <%= javascript_include_tag "timeline" %>
 <script>
@@ -240,18 +247,25 @@
 <% end %>
 </table>
 
+<% @pet.updates.each do |update| %>
+  <script>
+    addSpecificPet("<%= update.info %>");
+  </script>
+<% end %>
 
+<% if @pet.updates.length == 0 %>
+  <script>
+    addRandomPet();
+  </script>
+<% end %>
 <script>
     function onDrop(e) {
         e.preventDefault();
         addRandomPet();
     }
-    // Populate with one random photo
-    addRandomPet();
     $(document).ready(function() {
             var name = '<%= @pet.name %>';
             var pic = document.getElementById("pet-prof");
-            //pic.src = getRandomPet();
             pic.src = getNonrandomPet(name);
             var uploader = document.getElementById("uploader");
             $("#uppic").change(function(){
