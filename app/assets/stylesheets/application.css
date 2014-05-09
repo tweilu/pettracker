@@ -306,13 +306,15 @@ input[type=file] {
 
 .btn {
   background-color: #5f9eca!important;
-  color: #000!important;
+  color: #fff!important;
 }
 
 .btn-accept {
+  border-color: #2f8d3e!important;
   background-color: #67cc79!important;
 }
 
 .btn-reject {
+  border-color: #722726!important;
   background-color: #b7423d!important;
 }
