@@ -16,6 +16,10 @@ class PetsController < ApplicationController
     @pets = current_user.my_pets.sort_by!{ |m| m.name.downcase }
     @newpet = Pet.new
     events = []
+    @sitters = []
+    current_user.sitters.each do |s|
+      @sitters << s.email
+    end
     @pets.each do |pet|
       pet.events.each do |evt|
         events << evt.as_json
@@ -53,6 +57,8 @@ class PetsController < ApplicationController
       sitter = User.find_by(:email => params[:sitter_email])
       if sitter
         Pet.update_all(['sitter_id=?', sitter.id], :id => params[:pet_ids])
+      else
+        flash[:danger] = 'Could not find a sitter with that email address.'
       end
     elsif params[:removesitter_btn]
       Pet.update_all(['sitter_id=?', nil], :id => params[:pet_ids])
@@ -87,9 +93,11 @@ class PetsController < ApplicationController
     @pet = Pet.find(params[:petid])
     sitteremail = params[:pet][:sitter_email]
     sitter = User.find_by(:email => sitteremail)
-    Relationship.create(:sitter_id => sitter.id, :client_id => current_user.id)
     if sitter
       @pet.update_attributes(:sitter_id => sitter.id)
+      Relationship.create(:sitter_id => sitter.id, :client_id => current_user.id)
+    else
+      flash[:danger] = 'Could not find a sitter with that email address.'
     end
     redirect_to :back
   end
