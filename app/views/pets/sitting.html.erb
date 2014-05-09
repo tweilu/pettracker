@@ -17,7 +17,7 @@
             <div class="my-pet-entry">
               <img class="pull-left my-pet-pic img-circle" src="http://placehold.it/100&text=sitting+pet" />
                 <h2>
-                  <%= pet.name %> <small>(<%= pet.owner.name %>)</small><br />
+                  <span><%= pet.name %></span> <small>(<%= pet.owner.name %>)</small><br />
                   <small>
                     <%= pet.pet_type %>
                   </small>
@@ -48,6 +48,11 @@
 <script type="text/javascript">
 
   $(document).ready(function() {
+   $(".my-pet-entry").each(function() {
+       var name = this.childNodes[3].childNodes[1].innerHTML
+       var img = this.childNodes[1];
+       img.src = getNonrandomPet(name);
+   });
 
     $('#delete_btn').attr("disabled", true);
 

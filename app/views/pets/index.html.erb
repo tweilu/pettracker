@@ -21,7 +21,7 @@
             <div class="my-pet-entry">
               <img class="pull-left my-pet-pic img-circle" src="http://placehold.it/100&text=my+pet" />
                 <h2>
-                  <%= pet.name %><br />
+                  <span><%= pet.name %></span><br />
                   <small><%= pet.pet_type %> - 
                     <% if pet.sitter.nil? %>
                       No Sitter
@@ -120,6 +120,11 @@
   $(".my-pets").addClass("active");
 
   $(document).ready(function() {
+   $(".my-pet-entry").each(function() {
+       var name = this.childNodes[3].childNodes[1].innerHTML
+       var img = this.childNodes[1];
+       img.src = getNonrandomPet(name);
+   });
     $('#calendar').fullCalendar({
         // put your options and callbacks here
         events: <%= raw @events_array.to_json %>,
