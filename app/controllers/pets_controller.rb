@@ -140,6 +140,15 @@ class PetsController < ApplicationController
     end
   end
 
+  def deleteplodo
+    @pet = Pet.find(params[:pet_id])
+    @plodo = Plodo.where(:rand => params[:rand]).first
+    @pet.plodos.delete(@plodo)
+
+    respond_to do |format|
+      format.js
+    end
+  end
 
   def deleteevent
     @pet = Pet.find(params[:pet_id])

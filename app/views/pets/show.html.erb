@@ -21,7 +21,11 @@
   <div class="col-md-9">
 
     <div class="pull-left">
-      <img class="pet-pic" src="http://placehold.it/190&text=my+pet" />
+      <img id="pet-prof" class="pet-pic" src="http://placehold.it/190&text=my+pet" />
+      <div style="position: relative;">
+      <input value="Update Profile Picture" type="file" id="uppic" style="position: relative; left:-11px; top:-3px">
+      <div id="upbutton">change photo</div>
+      </div>
     </div>
     <h1><small>Located in <%= @pet.owner.location %></small></h1>
     <p class="pet-description-text"><%= @pet.description %></p>
@@ -209,6 +213,13 @@
   <% end %>
 <% end %>
 
+<%= form_tag pets_deleteplodo_path, :id => 'delete_plodo_form', :method => :post, :remote => true do %>
+  <%= hidden_field_tag :rand, "empty", :id => 'delete_plodo_form_rand' %>
+  <%= hidden_field_tag :pet_id, @pet.id %>
+  <%= button_tag(type: 'submit', :name => 'delete_plodo', :style => "display: none") do %>
+  <% end %>
+<% end %>
+
 
 <%= javascript_include_tag "timeline" %>
 <script>
@@ -235,9 +246,15 @@
         addRandomPet();
     }
     $(document).ready(function() {
+            var pic = document.getElementById("pet-prof");
+            pic.src = getRandomPet();
             var uploader = document.getElementById("uploader");
-            uploader.addEventListener('dragover', function(e){e.preventDefault();}, true);
+            $("#uppic").change(function(){
+                var pic = document.getElementById("pet-prof");
+                pic.src = getRandomPet();
+            ;});
             uploader.addEventListener('drop', onDrop, true);
+            uploader.addEventListener('dragover', function(e){e.preventDefault();}, true);
     });
 </script>
 
