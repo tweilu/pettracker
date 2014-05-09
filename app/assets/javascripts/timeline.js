@@ -81,6 +81,8 @@ function nameFromSrc(src) {
 function startTileDrag(target) {
     saveNote(target);
     $("#note").remove();
+    sendEditForm(target);
+    $(target).removeClass("selected-icon");
 
     target.style.height = IMG_WIDTH + "px";
     target.style.zIndex = "12";

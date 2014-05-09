@@ -48,11 +48,13 @@
 .icon:hover {
     border-radius: 6px;
     box-shadow: 0 0 10px #605f60;
+    z-index: 13;
 }
 
 .selected-icon {
     border-radius: 6px;
     box-shadow: 0 0 10px #605f60;
+    z-index: 13;
 }
 
 #note {
