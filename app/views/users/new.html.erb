@@ -8,49 +8,45 @@
     }
 </style>
 <% provide(:title, 'Sign up') %>
-<%= image_tag('logo.png', :class => 'homelogo') %>
 
 <div class="homehero">
-  <h1>welcome to paw<span style="color:#67cc79">pro</span>!</h1>
-  <p>Pawpro lets you keep track of what your pets are doing when you're on vacation. Or if you're a pet sitter, you can keep track of all the necessary information to make the pets you're sitting comfortable.</p>
-  <p>What are you waiting for? JOIN US</p>
+  <%= image_tag('logo.png', :class => 'homelogo') %>
+  <div class="box">
+    <h1>welcome to paw<span style="color:#67cc79">pro</span>!</h1>
+    <p>Pawpro is the ultimate tool for helping you keep track of your pets!</p>
+    <p>What are you waiting for? JOIN US</p>
 
-  <div class="signinbox">
-    <%= form_for(:session, url: sessions_path) do |f| %>
+    <div class="signinbox">
+      <h3>Sign In</h3>
+      <%= form_for(:session, url: sessions_path) do |f| %>
 
-      <%= f.text_field :email, :class => 'form-control', :placeholder => "Email Address" %>
-      <br/>
+        <%= f.text_field :email, :class => 'form-control', :placeholder => "Email Address" %>
 
-      <%= f.password_field :password, :class => 'form-control', :placeholder => "Password" %>
-      <br/>
+        <%= f.password_field :password, :class => 'form-control', :placeholder => "Password" %>
 
-      <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
-      </span><br/>
-    <% end %>
-  </div>
+        <%= f.submit "Sign in", class: "btn btn-large btn-primary pull-right" %>
+      <% end %>
+    </div>
 
-  <div class="signupbox">
-    <%= form_for(@user) do |f| %>
+    <div class="signupbox">
+      <h3>Sign Up</h3>
+      <%= form_for(@user) do |f| %>
 
-      <%= render 'shared/error_messages' %>
+        <%= render 'shared/error_messages' %>
 
-      <%= f.text_field :name, :class => 'form-control', :placeholder => "Full Name" %>
-      <br/>
+        <%= f.text_field :name, :class => 'form-control', :placeholder => "Full Name" %>
 
-      <%= f.text_field :email, :class => 'form-control', :placeholder => "Email Address" %>
-      <br/>
+        <%= f.text_field :email, :class => 'form-control', :placeholder => "Email Address" %>
 
-      <%= f.text_field :location, :class => 'form-control', :placeholder => "City" %>
-      <br/>
+        <%= f.text_field :location, :class => 'form-control', :placeholder => "City" %>
 
-      <%= f.password_field :password, :class => 'form-control', :placeholder => "Password" %>
-      <br/>
+        <%= f.password_field :password, :class => 'form-control', :placeholder => "Password" %>
 
-      <%= f.password_field :password_confirmation, :class => 'form-control', :placeholder => "Password Confirmation" %>
-      <br/>
+        <%= f.password_field :password_confirmation, :class => 'form-control', :placeholder => "Password Confirmation" %>
 
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-    <% end %>
+        <%= f.submit "Create my account", class: "btn btn-large btn-primary pull-right" %>
+      <% end %>
+    </div>
   </div>
 
 </div>
