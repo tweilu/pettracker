@@ -1,5 +1,5 @@
 <h1 class="page-header">
-  <div id="petname"><%= @pet.name %></div>
+  <%= @pet.name %>
   <span id="petsitter-info" class="pull-right">
     <% if @pet.owner != current_user %>
       <small>
@@ -244,10 +244,10 @@
         addRandomPet();
     }
     $(document).ready(function() {
-            var name = document.getElementById("petname");
+            var name = '<%= @pet.name %>';
             var pic = document.getElementById("pet-prof");
             //pic.src = getRandomPet();
-            pic.src = getNonrandomPet(name.innerHTML);
+            pic.src = getNonrandomPet(name);
             var uploader = document.getElementById("uploader");
             $("#uppic").change(function(){
                 var pic = document.getElementById("pet-prof");
